@@ -1,0 +1,42 @@
+[
+  {
+    "slug": "educational-toys",
+    "name": "Educational Toys",
+    "description": "Learn through play with STEM kits and smart games"
+  },
+  {
+    "slug": "baby-toys",
+    "name": "Baby Toys",
+    "description": "Safe, soft and sensory toys for little ones"
+  },
+  {
+    "slug": "remote-control-toys",
+    "name": "Remote Control Toys",
+    "description": "RC cars, drones and off-road racers"
+  },
+  {
+    "slug": "soft-toys",
+    "name": "Soft Toys",
+    "description": "Cuddly teddies, plush animals and pillows"
+  },
+  {
+    "slug": "building-blocks",
+    "name": "Building Blocks",
+    "description": "Bricks, magnetic tiles and creative sets"
+  },
+  {
+    "slug": "outdoor-toys",
+    "name": "Outdoor Toys",
+    "description": "Bikes, kites and summer water fun"
+  },
+  {
+    "slug": "board-games",
+    "name": "Board Games",
+    "description": "Family game nights made memorable"
+  },
+  {
+    "slug": "action-figures",
+    "name": "Action Figures",
+    "description": "Robots, heroes and dinosaur warriors"
+  }
+]
