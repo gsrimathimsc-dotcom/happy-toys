@@ -35,5 +35,48 @@ export const checkoutSchema = z.object({
 });
 export type CheckoutValues = z.infer<typeof checkoutSchema>;
 
+export const productSchema = z
+  .object({
+    name: z.string().trim().min(1, "Please enter a product name.").max(120, "Use 120 characters or fewer."),
+    categoryId: z.string().min(1, "Please choose a category."),
+    brand: z.string().trim().min(1, "Please enter a brand.").max(60, "Use 60 characters or fewer."),
+    description: z.string().trim().min(1, "Please enter a description.").max(2000, "Use 2000 characters or fewer."),
+    price: z.number("Enter a price.").min(1, "Price must be at least ₹1.").max(1000000, "Price is too high."),
+    originalPrice: z.number("Enter the original price.").min(1, "Original price must be at least ₹1.").max(1000000, "Price is too high."),
+    imageUrl: z.string().trim().min(1, "Please enter an image address."),
+    stockQuantity: z.number("Enter the stock.").int("Use a whole number.").min(0, "Stock cannot be below 0.").max(100000, "Stock is too high."),
+    ageGroup: z.string().trim().max(40, "Use 40 characters or fewer."),
+    isActive: z.boolean(),
+    isFeatured: z.boolean(),
+    isBestSeller: z.boolean(),
+    isNew: z.boolean(),
+  })
+  .refine((product) => product.originalPrice >= product.price, {
+    message: "Original price cannot be lower than the selling price.",
+    path: ["originalPrice"],
+  });
+export type ProductValues = z.infer<typeof productSchema>;
+
+export const categorySchema = z.object({
+  name: z.string().trim().min(1, "Please enter a category name.").max(60, "Use 60 characters or fewer."),
+  description: z.string().trim().min(1, "Please enter a description.").max(300, "Use 300 characters or fewer."),
+});
+export type CategoryValues = z.infer<typeof categorySchema>;
+
+export const couponSchema = z
+  .object({
+    code: z.string().trim().regex(/^[A-Za-z0-9]{3,30}$/, "Use 3 to 30 letters or numbers, with no spaces."),
+    type: z.enum(["percentage", "fixedAmount"]),
+    value: z.number("Enter the discount.").min(1, "Discount must be at least 1.").max(100000, "Discount is too high."),
+    minimumOrderAmount: z.number("Enter the minimum order.").min(0, "Cannot be below 0.").max(1000000, "Amount is too high."),
+    expiresOn: z.string(),
+    isActive: z.boolean(),
+  })
+  .refine((coupon) => coupon.type !== "percentage" || coupon.value <= 100, {
+    message: "A percentage cannot be more than 100.",
+    path: ["value"],
+  });
+export type CouponValues = z.infer<typeof couponSchema>;
+
 export const newsletterSchema = z.object({ email });
 export type NewsletterValues = z.infer<typeof newsletterSchema>;

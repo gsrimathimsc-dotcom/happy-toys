@@ -147,6 +147,104 @@ export interface AuthResult {
   user: User;
 }
 
+/** What the API needs to save a product (admin only) */
+export interface ProductInput {
+  name: string;
+  categoryId: string;
+  brand: string;
+  description: string;
+  price: number;
+  originalPrice: number;
+  imageUrl: string;
+  stockQuantity: number;
+  isActive: boolean;
+  ageGroup: string;
+  isFeatured: boolean;
+  isBestSeller: boolean;
+  isNew: boolean;
+  specifications: Record<string, string>;
+}
+
+export interface DailyItem {
+  productId: string;
+  name: string;
+  quantity: number;
+  amount: number;
+}
+
+export interface DailySales {
+  date: string;
+  orders: number;
+  itemsSold: number;
+  sales: number;
+  items: DailyItem[];
+}
+
+export interface AdminDashboard {
+  totalProducts: number;
+  totalOrders: number;
+  totalCustomers: number;
+  totalSales: number;
+  lowStockProducts: number;
+  outOfStockProducts: number;
+  openOrders: number;
+  productsOnOffer: number;
+  activeCoupons: number;
+  today: DailySales;
+  recentOrders: Order[];
+  bestSellingProducts: { productId: string; name: string; imageUrl: string; unitsSold: number; revenue: number }[];
+  salesOverview: DailySales[];
+  orderStatusCounts: { status: OrderStatus; count: number }[];
+}
+
+export interface Coupon {
+  id: number;
+  code: string;
+  type: "percentage" | "fixedAmount";
+  value: number;
+  minimumOrderAmount: number;
+  isActive: boolean;
+  expiresAt: string | null;
+}
+
+export interface CouponInput {
+  code: string;
+  type: Coupon["type"];
+  value: number;
+  minimumOrderAmount: number;
+  isActive: boolean;
+  expiresAt: string | null;
+}
+
+export interface CategoryInput {
+  name: string;
+  description: string;
+}
+
+export interface MonthlySales {
+  year: number;
+  month: number;
+  label: string;
+  orders: number;
+  itemsSold: number;
+  sales: number;
+}
+
+export interface Customer {
+  id: string;
+  name: string;
+  email: string;
+  mobile: string;
+  joinedAt: string;
+  orders: number;
+  totalSpent: number;
+}
+
+export interface AdminOffers {
+  productsOnOffer: Product[];
+  coupons: Coupon[];
+}
+
 /** Standard shape returned by every API endpoint */
 export type ApiResponse<T> =
   | { success: true; data: T }

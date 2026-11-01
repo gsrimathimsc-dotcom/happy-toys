@@ -10,6 +10,7 @@ public interface IProductService
     Task<StoreSummaryDto> GetStoreSummaryAsync();
     Task<ProductDto> CreateAsync(ProductRequest request);
     Task<ProductDto> UpdateAsync(string id, ProductRequest request);
+    Task<ProductDto> UpdateStockAsync(string id, int stockQuantity);
     Task DeleteAsync(string id);
 }
 
@@ -17,6 +18,9 @@ public interface ICategoryService
 {
     Task<IReadOnlyList<CategoryDto>> GetAllAsync();
     Task<CategoryDto> GetByIdAsync(string id);
+    Task<CategoryDto> CreateAsync(CategoryRequest request);
+    Task<CategoryDto> UpdateAsync(string id, CategoryRequest request);
+    Task DeleteAsync(string id);
 }
 
 public interface ICartService
@@ -57,4 +61,11 @@ public interface IAdminService
     Task<AdminDashboardDto> GetDashboardAsync();
     Task<IReadOnlyList<OrderDto>> GetOrdersAsync(OrderStatus? status);
     Task<IReadOnlyList<ProductDto>> GetProductsAsync();
+    Task<IReadOnlyList<DailySalesDto>> GetDailySalesAsync(int days);
+    Task<IReadOnlyList<MonthlySalesDto>> GetMonthlySalesAsync(int months);
+    Task<IReadOnlyList<CustomerDto>> GetCustomersAsync();
+    Task<AdminOffersDto> GetOffersAsync();
+    Task<CouponDto> CreateCouponAsync(CouponRequest request);
+    Task<CouponDto> UpdateCouponAsync(int id, CouponRequest request);
+    Task DeleteCouponAsync(int id);
 }

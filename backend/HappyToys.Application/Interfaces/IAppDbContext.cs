@@ -22,6 +22,7 @@ public interface IAppDbContext
     DbSet<WishlistItem> WishlistItems { get; }
     DbSet<Order> Orders { get; }
     DbSet<InventoryTransaction> InventoryTransactions { get; }
+    DbSet<Coupon> Coupons { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 

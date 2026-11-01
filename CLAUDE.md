@@ -749,3 +749,38 @@ Build it as a real business-ready demonstration application with an attractive U
 Start by analysing the existing project. Do not start coding before completing the initial assessment.
 
 Work incrementally, explain important changes in simple English, and provide a summary of completed and remaining features after each development phase.
+---
+
+## 15. CHANGE LOG (keep updated after every change)
+
+### 2026-11-01 – Step 6: Admin panel completed
+
+Admin login: `/admin/login` (admins only; a customer account is signed out and told it is not an administrator). Seed admin credentials are listed in SETUP_GUIDE.md. Admin pages redirect here when not signed in.
+
+Daily and monthly "purchase" means customer orders (cancelled orders excluded, Indian time). No supplier-purchase tables were added.
+
+New or changed API endpoints (all admin-only, all saved in PostgreSQL):
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | /api/admin/reports/monthly?months=12 | Orders, units and total amount per month |
+| GET | /api/admin/customers | Customers with order count and total spent |
+| POST / PUT / DELETE | /api/admin/coupons[/{id}] | Add, edit, delete coupons (code unique, percentage max 100) |
+| POST / PUT / DELETE | /api/categories[/{id}] | Add, rename, delete categories (id is a slug of the name; delete refused while products use it) |
+
+`CouponDto` now includes `id`. Existing: dashboard, orders, products, daily report, offers, product create/edit/delete/stock, order status.
+
+Admin screens: Dashboard, Products (add/edit/delete), Categories (add/edit/delete), Stock, Orders and order details (status update), Customers, Daily Sales, Monthly Sales, Offers (coupon add/edit/delete).
+
+Files: backend `AdminService`, `CategoryService`, `AdminController`, `CategoriesController`, DTOs; frontend `pages/admin/*`, `AdminLayout`, `RequireAdmin`, `adminService.ts`, `schemas.ts`. Tests: `AdminManagementTests.cs`.
+
+Status: frontend type-checks and builds; backend compiles. The new backend tests are written but NOT yet run (they need `HAPPYTOYS_TEST_DB`).
+
+Still not done: product image upload (admin enters an image address), customer reviews and moderation, admin password reset, charts (tables and bars only), customer-side use of coupons at checkout, deployment to Vercel (needs `vercel login` and a Neon database).
+
+### 2026-11-01 – Admin login page and dashboard charts
+
+- `/admin/login` is now a standalone page (no store navbar or footer) and shows no credentials.
+- Dashboard now has charts (plain SVG/CSS, no chart library): monthly sales, revenue trend (7 days), orders by status, top-selling products. All figures come from the database. `GET /api/admin/dashboard` now also returns `orderStatusCounts`.
+- Demo data: with `Seed:SampleOrders=true` (set in `appsettings.Development.json` only) the seeder adds 8 sample customers and about 70 orders over 6 months, once, only when the orders table is empty. Sample customers use the `Seed:CustomerPassword`.
+- Not run yet: backend tests, and the seeder against a live database.

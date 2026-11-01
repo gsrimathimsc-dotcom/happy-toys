@@ -47,6 +47,11 @@ public class ProductsController(IProductService products) : ApiControllerBase
     public async Task<IActionResult> Update(string id, ProductRequest request) =>
         Success(await products.UpdateAsync(id, request));
 
+    [HttpPatch("{id}/stock")]
+    [Authorize(Roles = Role.Admin)]
+    public async Task<IActionResult> UpdateStock(string id, UpdateStockRequest request) =>
+        Success(await products.UpdateStockAsync(id, request.StockQuantity));
+
     [HttpDelete("{id}")]
     [Authorize(Roles = Role.Admin)]
     public async Task<IActionResult> Delete(string id)

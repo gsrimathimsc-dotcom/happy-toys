@@ -91,6 +91,7 @@ The online API reads these private settings. They belong in the hosting service,
 | `Cors__AllowedOrigins__0` | Address of the online website |
 | `Seed__AdminPassword` | Password for the online admin account |
 | `Seed__CustomerPassword` | Password for the online demo customer |
+| `Seed__SampleOrders` | `true` adds 8 sample customers and about 70 sample orders (only when there are no orders yet). Leave unset for a real store. |
 
 ## 9. Troubleshooting
 

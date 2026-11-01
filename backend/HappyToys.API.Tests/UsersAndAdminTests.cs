@@ -98,6 +98,8 @@ public class UsersAndAdminTests
     [InlineData("/api/admin/dashboard")]
     [InlineData("/api/admin/orders")]
     [InlineData("/api/admin/products")]
+    [InlineData("/api/admin/offers")]
+    [InlineData("/api/admin/reports/daily")]
     public async Task Admin_endpoints_are_for_admins_only(string url)
     {
         using var api = new TestApi();
@@ -129,6 +131,89 @@ public class UsersAndAdminTests
         var overview = data.GetProperty("salesOverview");
         Assert.Equal(7, overview.GetArrayLength());
         Assert.Equal(1798, overview[6].GetProperty("sales").GetDecimal());
+    }
+
+    [Fact]
+    public async Task Dashboard_counts_stock_offers_and_today()
+    {
+        using var api = new TestApi();
+        var admin = await api.AdminAsync();
+        await api.Guest().PostAsJsonAsync("/api/orders", TestApi.OrderBody(("p10", 2), ("p5", 1)));
+
+        var data = await (await admin.GetAsync("/api/admin/dashboard")).DataAsync();
+        Assert.Equal(1, data.GetProperty("outOfStockProducts").GetInt32());
+        Assert.True(data.GetProperty("lowStockProducts").GetInt32() > 0);
+        Assert.Equal(1, data.GetProperty("openOrders").GetInt32());
+        Assert.Equal(2, data.GetProperty("activeCoupons").GetInt32());
+        Assert.True(data.GetProperty("productsOnOffer").GetInt32() > 0);
+        Assert.Equal(1, data.GetProperty("today").GetProperty("orders").GetInt32());
+        Assert.Equal(3, data.GetProperty("today").GetProperty("itemsSold").GetInt32());
+        Assert.Equal(2097, data.GetProperty("today").GetProperty("sales").GetDecimal());
+    }
+
+    [Fact]
+    public async Task Daily_report_lists_each_days_items_and_total()
+    {
+        using var api = new TestApi();
+        var admin = await api.AdminAsync();
+        await api.Guest().PostAsJsonAsync("/api/orders", TestApi.OrderBody(("p10", 2)));
+        await api.Guest().PostAsJsonAsync("/api/orders", TestApi.OrderBody(("p10", 1), ("p5", 4)));
+
+        var report = await (await admin.GetAsync("/api/admin/reports/daily?days=7")).DataAsync();
+        Assert.Equal(7, report.GetArrayLength());
+
+        var today = report[0];
+        Assert.Equal(2, today.GetProperty("orders").GetInt32());
+        Assert.Equal(7, today.GetProperty("itemsSold").GetInt32());
+        Assert.Equal(3893, today.GetProperty("sales").GetDecimal());
+
+        var items = today.GetProperty("items").EnumerateArray().ToList();
+        Assert.Equal(2, items.Count);
+        Assert.Equal("p5", items[0].GetProperty("productId").GetString());
+        Assert.Equal(1196, items[0].GetProperty("amount").GetDecimal());
+
+        await (await admin.GetAsync("/api/admin/reports/daily?days=0")).ErrorAsync(HttpStatusCode.BadRequest);
+    }
+
+    [Fact]
+    public async Task Cancelled_orders_are_left_out_of_the_daily_report()
+    {
+        using var api = new TestApi();
+        var admin = await api.AdminAsync();
+        var order = await (await api.Guest().PostAsJsonAsync("/api/orders", TestApi.OrderBody(("p10", 1)))).DataAsync();
+        await admin.PutAsJsonAsync($"/api/orders/{order.GetProperty("id").GetString()}/status", new { status = "cancelled" });
+
+        var report = await (await admin.GetAsync("/api/admin/reports/daily?days=1")).DataAsync();
+        Assert.Equal(0, report[0].GetProperty("itemsSold").GetInt32());
+    }
+
+    [Fact]
+    public async Task Offers_list_discounted_products_and_coupons()
+    {
+        using var api = new TestApi();
+        var data = await (await (await api.AdminAsync()).GetAsync("/api/admin/offers")).DataAsync();
+
+        var discounts = data.GetProperty("productsOnOffer").EnumerateArray().Select(p => p.GetProperty("discountPercentage").GetInt32()).ToList();
+        Assert.Equal(discounts.OrderDescending(), discounts);
+        Assert.Contains(data.GetProperty("coupons").EnumerateArray(), c => c.GetProperty("code").GetString() == "HAPPY10");
+    }
+
+    [Fact]
+    public async Task Only_admins_can_change_stock_and_changes_are_validated()
+    {
+        using var api = new TestApi();
+        var body = new { stockQuantity = 50 };
+        await (await api.CreateClient().PatchAsJsonAsync("/api/products/p6/stock", body)).ErrorAsync(HttpStatusCode.Unauthorized);
+        await (await (await api.CustomerAsync()).PatchAsJsonAsync("/api/products/p6/stock", body)).ErrorAsync(HttpStatusCode.Forbidden);
+
+        var admin = await api.AdminAsync();
+        await (await admin.PatchAsJsonAsync("/api/products/p6/stock", new { stockQuantity = -1 })).ErrorAsync(HttpStatusCode.BadRequest);
+        await (await admin.PatchAsJsonAsync("/api/products/nope/stock", body)).ErrorAsync(HttpStatusCode.NotFound);
+
+        var updated = await (await admin.PatchAsJsonAsync("/api/products/p6/stock", body)).DataAsync();
+        Assert.Equal(50, updated.GetProperty("stockQuantity").GetInt32());
+        Assert.Equal("in-stock", updated.GetProperty("stockStatus").GetString());
+        Assert.Equal(38, await api.ScalarAsync("""SELECT "QuantityChange" FROM "InventoryTransactions" WHERE "ProductId" = 'p6' AND "Reason" = 'AdminAdjustment' """));
     }
 
     [Fact]

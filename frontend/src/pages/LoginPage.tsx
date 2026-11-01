@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useAuth } from "@/context/AuthContext";
@@ -13,6 +13,7 @@ import FormField from "@/components/ui/FormField";
 export default function LoginPage() {
   useDocumentTitle("Log In");
   const navigate = useNavigate();
+  const location = useLocation();
   const { login } = useAuth();
   const { showToast } = useToast();
   const [formError, setFormError] = useState("");
@@ -29,9 +30,10 @@ export default function LoginPage() {
   const submit = async ({ email, password }: LoginValues) => {
     setFormError("");
     try {
-      await login(email, password);
+      const user = await login(email, password);
       showToast("Welcome back! You are now logged in.", "success");
-      navigate("/");
+      const cameFrom = (location.state as { from?: string } | null)?.from;
+      navigate(user.role === "admin" ? (cameFrom ?? "/admin") : "/");
     } catch (error) {
       setFormError(error instanceof Error ? error.message : "Could not log in.");
     }

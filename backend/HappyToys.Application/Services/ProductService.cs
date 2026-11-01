@@ -98,6 +98,22 @@ public class ProductService(IAppDbContext db) : IProductService
         return await GetAnyAsync(id);
     }
 
+    public Task<ProductDto> UpdateStockAsync(string id, int stockQuantity) =>
+        db.InTransactionAsync(async () =>
+        {
+            // The lock stops this change colliding with an order for the same toy.
+            var products = await db.LockProductsAsync([id]);
+            if (!products.TryGetValue(id, out var product))
+            {
+                throw ApiException.NotFound($"Product \"{id}\" was not found.");
+            }
+
+            RecordStockChange(id, stockQuantity - product.StockQuantity, InventoryReason.AdminAdjustment);
+            product.StockQuantity = stockQuantity;
+            await db.SaveChangesAsync();
+            return await GetAnyAsync(id);
+        });
+
     public async Task DeleteAsync(string id)
     {
         var product = await db.Products.FirstOrDefaultAsync(p => p.Id == id && p.IsActive)

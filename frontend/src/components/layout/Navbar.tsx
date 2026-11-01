@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Heart, LogOut, Menu, ShoppingCart, Truck, User, X } from "lucide-react";
+import { Heart, LayoutDashboard, LogOut, Menu, ShoppingCart, Truck, User, X } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
@@ -62,6 +62,14 @@ export default function Navbar() {
         <nav className="ml-auto flex items-center gap-1 sm:gap-2">
           {user ? (
             <div className="hidden items-center gap-2 md:flex">
+              {user.role === "admin" && (
+                <Link
+                  to="/admin"
+                  className="flex items-center gap-2 rounded-full bg-navy px-3 py-1.5 text-sm font-semibold text-white transition hover:bg-primary"
+                >
+                  <LayoutDashboard className="h-4 w-4" /> Admin
+                </Link>
+              )}
               <span className="flex items-center gap-2 rounded-full bg-primary-light px-3 py-1.5 text-sm font-semibold text-primary">
                 <User className="h-4 w-4" />
                 Hi, {user.name.split(" ")[0]}
@@ -105,11 +113,11 @@ export default function Navbar() {
 
       {/* Category strip (desktop) */}
       <div className="hidden border-t border-slate-100 lg:block">
-        <ul className="container-page flex items-center gap-1 overflow-x-auto py-1">
+        <ul className="container-page flex items-center justify-between overflow-x-auto py-1 [scrollbar-width:none]">
           <li>
             <Link
               to="/products"
-              className="block whitespace-nowrap rounded-full px-3 py-2 text-sm font-semibold text-primary hover:bg-primary-light"
+              className="block whitespace-nowrap rounded-full px-2 py-2 text-sm font-semibold text-primary hover:bg-primary-light"
             >
               All Toys
             </Link>
@@ -118,7 +126,7 @@ export default function Navbar() {
             <li key={category.id}>
               <Link
                 to={`/products?category=${category.id}`}
-                className="block whitespace-nowrap rounded-full px-3 py-2 text-sm font-medium text-navy transition hover:bg-slate-100 hover:text-primary"
+                className="block whitespace-nowrap rounded-full px-2 py-2 text-sm font-medium text-navy transition hover:bg-slate-100 hover:text-primary"
               >
                 {category.name}
               </Link>
@@ -147,6 +155,11 @@ export default function Navbar() {
                   Register
                 </Link>
               </div>
+            )}
+            {user?.role === "admin" && (
+              <Link to="/admin" className="rounded-lg px-3 py-2.5 font-semibold text-navy hover:bg-slate-50">
+                Admin Dashboard
+              </Link>
             )}
             <Link to="/products" className="rounded-lg px-3 py-2.5 font-semibold text-primary hover:bg-slate-50">
               All Toys

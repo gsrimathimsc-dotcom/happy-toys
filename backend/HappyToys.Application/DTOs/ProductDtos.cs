@@ -81,6 +81,13 @@ public class ProductQuery : IValidatableObject
     }
 }
 
+/// <summary>Body of PATCH /api/products/{id}/stock (admin only).</summary>
+public class UpdateStockRequest
+{
+    [Range(0, 100000, ErrorMessage = "Stock must be between 0 and 1,00,000.")]
+    public int StockQuantity { get; set; }
+}
+
 /// <summary>Body of POST and PUT /api/products (admin only).</summary>
 public class ProductRequest : IValidatableObject
 {
@@ -125,4 +132,16 @@ public class ProductRequest : IValidatableObject
             yield return new ValidationResult("Original price cannot be lower than the selling price.", [nameof(OriginalPrice)]);
         }
     }
+}
+
+/// <summary>Body of POST and PUT /api/categories (admin only).</summary>
+public class CategoryRequest
+{
+    [Required(ErrorMessage = "Category name is required.")]
+    [StringLength(60, ErrorMessage = "Category name must be 60 characters or fewer.")]
+    public string Name { get; set; } = "";
+
+    [Required(ErrorMessage = "Description is required.")]
+    [StringLength(300, ErrorMessage = "Description must be 300 characters or fewer.")]
+    public string Description { get; set; } = "";
 }

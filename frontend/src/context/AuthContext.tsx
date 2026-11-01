@@ -20,7 +20,8 @@ interface AuthContextValue {
   user: User | null;
   /** true once the saved session has been checked with the API */
   isReady: boolean;
-  login: (email: string, password: string) => Promise<void>;
+  /** Returns the logged-in user, so the page can send admins to their dashboard. */
+  login: (email: string, password: string) => Promise<User>;
   register: (name: string, email: string, password: string) => Promise<void>;
   logout: () => void;
 }
@@ -39,6 +40,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const startSession = useCallback((session: AuthResult) => {
     saveToStorage(STORAGE_KEYS.session, session);
     setUser(session.user);
+    return session.user;
   }, []);
 
   // Check the saved session once. A restarted API no longer knows the token.
@@ -64,8 +66,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
 
   const register = useCallback(
-    async (name: string, email: string, password: string) =>
-      startSession(await userService.register(name, email, password)),
+    async (name: string, email: string, password: string) => {
+      startSession(await userService.register(name, email, password));
+    },
     [startSession]
   );
 
