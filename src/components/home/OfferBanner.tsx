@@ -8,7 +8,7 @@ export default function OfferBanner() {
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-accent to-orange-400 p-8 text-white">
           <Percent className="absolute -right-6 -top-6 h-40 w-40 text-white/15" />
           <p className="text-sm font-semibold uppercase tracking-wider text-orange-100">Limited time</p>
-          <h3 className="mt-2 text-3xl font-extrabold">Up to 40% off</h3>
+          <h3 className="mt-2 text-3xl font-extrabold">Up to 36% off</h3>
           <p className="mt-2 max-w-xs text-orange-50">On remote control cars, drones and off-road racers.</p>
           <Button href="/products?category=remote-control-toys" variant="light" className="mt-6">
             Shop RC Toys

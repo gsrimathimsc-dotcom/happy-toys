@@ -11,14 +11,14 @@ export default function HeroBanner() {
       <div className="container-page relative grid items-center gap-10 py-14 lg:grid-cols-2 lg:py-20">
         <div className="animate-slide-up text-white">
           <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-sm font-semibold backdrop-blur">
-            <Sparkles className="h-4 w-4 text-secondary" /> Festive Sale - up to 40% off
+            <Sparkles className="h-4 w-4 text-secondary" /> Festive Sale - up to 37% off
           </span>
           <h1 className="mt-5 text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
             Toys that spark <span className="text-secondary">joy</span> and{" "}
             <span className="text-accent-light">imagination</span>
           </h1>
           <p className="mt-5 max-w-lg text-lg text-blue-100">
-            Discover safe, certified and fun toys for every age - from first rattles to STEM robot
+            Discover fun, thoughtfully chosen toys for every age - from first rattles to STEM robot
             kits. Delivered to your doorstep across India.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
@@ -31,9 +31,9 @@ export default function HeroBanner() {
           </div>
           <div className="mt-10 flex flex-wrap gap-8">
             {[
-              ["24+", "Toy styles"],
-              ["50K+", "Happy kids"],
-              ["4.6", "Avg. rating"],
+              ["24", "Toys to explore"],
+              ["8", "Categories"],
+              ["4.5", "Avg. rating"],
             ].map(([value, label]) => (
               <div key={label}>
                 <p className="text-2xl font-extrabold">{value}</p>
@@ -53,8 +53,8 @@ export default function HeroBanner() {
               <Star className="h-5 w-5 fill-secondary text-secondary" />
             </span>
             <div>
-              <p className="text-sm font-bold text-navy">Rated 4.6/5</p>
-              <p className="text-xs text-muted">by 25,000+ parents</p>
+              <p className="text-sm font-bold text-navy">Rated 4.5/5</p>
+              <p className="text-xs text-muted">across our demo catalog</p>
             </div>
           </div>
         </div>

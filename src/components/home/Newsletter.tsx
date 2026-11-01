@@ -37,7 +37,7 @@ export default function Newsletter() {
           </span>
           <h2 className="mt-5 text-3xl font-extrabold text-white">Join the Happy Toys Club</h2>
           <p className="mt-2 text-slate-300">
-            Get new arrivals, parenting tips and an extra 10% off your first order.
+            Get new arrivals, parenting tips and early access to our offers.
           </p>
           <form onSubmit={handleSubmit} noValidate className="mt-7 flex flex-col gap-3 sm:flex-row">
             <input

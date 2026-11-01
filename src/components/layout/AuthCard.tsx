@@ -16,7 +16,7 @@ export default function AuthCard({ title, subtitle, children }: { title: string;
             <h2 className="mt-10 text-3xl font-extrabold leading-tight">
               Every day is a <span className="text-secondary">play day</span>
             </h2>
-            <p className="mt-3 text-blue-100">Join thousands of parents who shop safe, certified toys with Happy Toys.</p>
+            <p className="mt-3 text-blue-100">Save your favourites and check out faster with a Happy Toys demo account.</p>
           </div>
           <ul className="relative space-y-4">
             {[

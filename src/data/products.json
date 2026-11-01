@@ -98,7 +98,6 @@
     "specifications": {
       "Material": "BPA-free plastic",
       "Pieces": "6",
-      "Certification": "BIS approved",
       "Washable": "Yes",
       "Weight": "250 g"
     }
@@ -281,8 +280,7 @@
       "Height": "35 cm",
       "Material": "Velboa plush",
       "Filling": "Polyester fibre",
-      "Washable": "Hand wash",
-      "Safety": "EN71 tested"
+      "Washable": "Hand wash"
     }
   },
   {

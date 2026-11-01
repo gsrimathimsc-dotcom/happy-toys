@@ -220,7 +220,7 @@ export default function ProductDetailsView({ productId }: { productId: string })
             {[
               { icon: Truck, text: "Free delivery over ₹999" },
               { icon: RotateCcw, text: "7-day easy returns" },
-              { icon: ShieldCheck, text: "Safety certified" },
+              { icon: ShieldCheck, text: "Secure demo checkout" },
             ].map(({ icon: Icon, text }) => (
               <div key={text} className="flex flex-col items-center gap-2">
                 <span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-light">

@@ -25,7 +25,7 @@ export default function Footer() {
         <div className="container-page grid gap-6 py-8 sm:grid-cols-3">
           {[
             { icon: Truck, title: "Fast Delivery", text: "Across India in 2-5 days" },
-            { icon: ShieldCheck, title: "Safe & Certified", text: "BIS-approved, non-toxic toys" },
+            { icon: ShieldCheck, title: "Thoughtfully Chosen", text: "Age-appropriate picks for every child" },
             { icon: RotateCcw, title: "Easy Returns", text: "7-day hassle-free returns" },
           ].map(({ icon: Icon, title, text }) => (
             <div key={title} className="flex items-center gap-4">
