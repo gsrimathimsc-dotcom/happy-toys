@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dcfce7"/><stop offset="1" stop-color="#f7fee7"/></linearGradient>
+<filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#1e293b" flood-opacity="0.18"/></filter>
+</defs>
+<rect width="600" height="600" fill="url(#bg)"/>
+<circle cx="510" cy="90" r="70" fill="#ffffff" opacity="0.35"/>
+<circle cx="80" cy="520" r="90" fill="#ffffff" opacity="0.25"/>
+<circle cx="90" cy="110" r="18" fill="#ffffff" opacity="0.5"/>
+<ellipse cx="300" cy="500" rx="190" ry="22" fill="#1e293b" opacity="0.10"/>
+<g filter="url(#sh)">
+<path d="M120 420 Q170 300 260 300 L330 300 Q360 210 420 170 Q470 150 495 185 Q505 215 470 230 L440 240 Q420 300 410 360 Q400 420 360 440 L360 480 L320 480 L320 445 L250 445 L250 480 L210 480 L210 440 Q170 440 120 420 Z" fill="#16a34a"/>
+<circle cx="455" cy="190" r="9" fill="#1e293b"/><path d="M470 225 L490 225" stroke="#1e293b" stroke-width="4"/>
+<polygon points="300,300 320,255 340,300" fill="#f97316"/><polygon points="250,300 270,262 290,300" fill="#f97316"/><polygon points="200,315 218,282 236,308" fill="#f97316"/>
+<ellipse cx="300" cy="380" rx="60" ry="35" fill="#bbf7d0" opacity="0.6"/>
+<path d="M410 300 L440 320" stroke="#16a34a" stroke-width="16" stroke-linecap="round"/>
+</g>
+</svg>
