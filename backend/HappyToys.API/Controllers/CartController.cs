@@ -1,5 +1,5 @@
-using HappyToys.API.DTOs;
-using HappyToys.API.Interfaces;
+using HappyToys.Application.DTOs;
+using HappyToys.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HappyToys.API.Controllers;
@@ -8,19 +8,19 @@ namespace HappyToys.API.Controllers;
 public class CartController(ICartService cart) : ApiControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> Get() => Success(await cart.GetAsync(GetOwnerId()));
+    public async Task<IActionResult> Get() => Success(await cart.GetAsync(GetOwner()));
 
     [HttpPost("items")]
     public async Task<IActionResult> AddItem(CartLineRequest request) =>
-        Created(await cart.AddItemAsync(GetOwnerId(), request));
+        Created(await cart.AddItemAsync(GetOwner(), request));
 
     [HttpPut("items/{id}")]
     public async Task<IActionResult> UpdateItem(string id, UpdateCartItemRequest request) =>
-        Success(await cart.UpdateItemAsync(GetOwnerId(), id, request.Quantity));
+        Success(await cart.UpdateItemAsync(GetOwner(), id, request.Quantity));
 
     [HttpDelete("items/{id}")]
     public async Task<IActionResult> RemoveItem(string id) =>
-        Success(await cart.RemoveItemAsync(GetOwnerId(), id));
+        Success(await cart.RemoveItemAsync(GetOwner(), id));
 
     /// <summary>
     /// Checks a cart saved in the browser against today's prices and stock.

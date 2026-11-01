@@ -40,7 +40,7 @@ export default function AuthCard({ title, subtitle, children }: { title: string;
           <p className="mt-1.5 text-muted">{subtitle}</p>
           <div className="mt-8">{children}</div>
           <p className="mt-6 rounded-xl bg-secondary-light px-4 py-3 text-xs text-navy">
-            <strong>Demo only:</strong> accounts are cleared when the demo server restarts. Don&apos;t use a real password.
+            <strong>Demo store:</strong> please don&apos;t use a password you use anywhere else.
           </p>
         </div>
       </div>

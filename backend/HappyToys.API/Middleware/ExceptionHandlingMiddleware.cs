@@ -1,5 +1,5 @@
-using HappyToys.API.DTOs;
-using HappyToys.API.Services;
+using HappyToys.Application.DTOs;
+using HappyToys.Application.Services;
 
 namespace HappyToys.API.Middleware;
 

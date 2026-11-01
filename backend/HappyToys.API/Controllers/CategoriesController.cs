@@ -1,4 +1,4 @@
-using HappyToys.API.Interfaces;
+using HappyToys.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HappyToys.API.Controllers;

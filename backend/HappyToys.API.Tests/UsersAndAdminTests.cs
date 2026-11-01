@@ -118,7 +118,7 @@ public class UsersAndAdminTests
         await customer.PutAsJsonAsync($"/api/orders/{toCancel.GetProperty("id").GetString()}/status", new { status = "cancelled" });
 
         var data = await (await admin.GetAsync("/api/admin/dashboard")).DataAsync();
-        Assert.Equal(24, data.GetProperty("totalProducts").GetInt32());
+        Assert.Equal(40, data.GetProperty("totalProducts").GetInt32());
         Assert.Equal(2, data.GetProperty("totalOrders").GetInt32());
         Assert.Equal(1, data.GetProperty("totalCustomers").GetInt32());
         Assert.Equal(1798, data.GetProperty("totalSales").GetDecimal());

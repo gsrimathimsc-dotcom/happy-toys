@@ -1,7 +1,7 @@
 using System.Security.Claims;
-using HappyToys.API.DTOs;
-using HappyToys.API.Models;
-using HappyToys.API.Services;
+using HappyToys.Application.DTOs;
+using HappyToys.Domain.Entities;
+using HappyToys.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HappyToys.API.Controllers;
@@ -18,7 +18,7 @@ public abstract class ApiControllerBase : ControllerBase
     protected string RequiredUserId =>
         CurrentUserId ?? throw ApiException.Unauthorized("Please log in to continue.");
 
-    protected bool IsAdmin => User.IsInRole(nameof(UserRole.Admin));
+    protected bool IsAdmin => User.IsInRole(Role.Admin);
 
     protected OkObjectResult Success<T>(T data) => Ok(ApiResponse.Ok(data));
 
@@ -28,15 +28,15 @@ public abstract class ApiControllerBase : ControllerBase
     /// Who a cart or wishlist belongs to: the logged-in user, or otherwise the
     /// visitor's id sent in the X-Guest-Id header.
     /// </summary>
-    protected string GetOwnerId()
+    protected Owner GetOwner()
     {
-        if (CurrentUserId is not null) return $"user:{CurrentUserId}";
+        if (CurrentUserId is not null) return new Owner(CurrentUserId, null);
 
         var guestId = Request.Headers[GuestIdHeader].ToString().Trim();
         if (guestId.Length is 0 or > MaxGuestIdLength)
         {
             throw ApiException.BadRequest($"Log in or send a guest id in the {GuestIdHeader} header.");
         }
-        return $"guest:{guestId}";
+        return new Owner(null, guestId);
     }
 }

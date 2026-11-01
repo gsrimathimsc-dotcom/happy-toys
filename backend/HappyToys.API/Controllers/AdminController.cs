@@ -1,5 +1,6 @@
-using HappyToys.API.Interfaces;
-using HappyToys.API.Models;
+using HappyToys.Application.Interfaces;
+using HappyToys.Domain.Entities;
+using HappyToys.Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,7 +8,7 @@ namespace HappyToys.API.Controllers;
 
 /// <summary>Demonstration admin panel. Every endpoint needs an Admin account.</summary>
 [Route("api/admin")]
-[Authorize(Roles = nameof(UserRole.Admin))]
+[Authorize(Roles = Role.Admin)]
 public class AdminController(IAdminService admin) : ApiControllerBase
 {
     [HttpGet("dashboard")]

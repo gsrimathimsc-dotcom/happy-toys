@@ -23,9 +23,9 @@ public class ProductsAndCategoriesTests
         using var api = new TestApi();
         var data = await (await api.Guest().GetAsync("/api/products?pageSize=5&page=2")).DataAsync();
 
-        Assert.Equal(24, data.GetProperty("totalCount").GetInt32());
+        Assert.Equal(40, data.GetProperty("totalCount").GetInt32());
         Assert.Equal(5, data.GetProperty("items").GetArrayLength());
-        Assert.Equal(5, data.GetProperty("totalPages").GetInt32());
+        Assert.Equal(8, data.GetProperty("totalPages").GetInt32());
 
         var all = await (await api.Guest().GetAsync("/api/products?pageSize=100")).DataAsync();
         var reviews = all.GetProperty("items").EnumerateArray().Select(p => p.GetProperty("reviewCount").GetInt32()).ToList();
@@ -95,7 +95,7 @@ public class ProductsAndCategoriesTests
     {
         using var api = new TestApi();
         var data = await (await api.Guest().GetAsync("/api/products/category/soft-toys")).DataAsync();
-        Assert.Equal(3, data.GetProperty("totalCount").GetInt32());
+        Assert.Equal(4, data.GetProperty("totalCount").GetInt32());
     }
 
     [Theory]
@@ -137,8 +137,8 @@ public class ProductsAndCategoriesTests
     {
         using var api = new TestApi();
         var all = await (await api.Guest().GetAsync("/api/categories")).DataAsync();
-        Assert.Equal(8, all.GetArrayLength());
-        Assert.All(all.EnumerateArray(), c => Assert.Equal(3, c.GetProperty("productCount").GetInt32()));
+        Assert.Equal(10, all.GetArrayLength());
+        Assert.All(all.EnumerateArray(), c => Assert.Equal(4, c.GetProperty("productCount").GetInt32()));
 
         var one = await (await api.Guest().GetAsync("/api/categories/board-games")).DataAsync();
         Assert.Equal("Board Games", one.GetProperty("name").GetString());
@@ -166,7 +166,7 @@ public class ProductsAndCategoriesTests
         Assert.Equal(HttpStatusCode.Created, created.StatusCode);
         var product = await created.DataAsync();
         var id = product.GetProperty("id").GetString();
-        Assert.Equal("p25", id);
+        Assert.Equal("p41", id);
         Assert.Equal(50, product.GetProperty("discountPercentage").GetInt32());
 
         var updated = await (await admin.PutAsJsonAsync($"/api/products/{id}", NewProduct(price: 750))).DataAsync();

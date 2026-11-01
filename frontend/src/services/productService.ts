@@ -1,4 +1,4 @@
-import type { Category, PagedResult, Product, ProductDetails } from "@/types";
+import type { Category, PagedResult, Product, ProductDetails, StoreSummary } from "@/types";
 import { apiRequest } from "./apiClient";
 
 /** The most products one request may return. Pagination arrives with the catalog work. */
@@ -22,6 +22,10 @@ export async function getCollection(collection: ProductCollection, limit = 4): P
 
 export function getProductDetails(id: string): Promise<ProductDetails> {
   return apiRequest({ url: `/api/products/${encodeURIComponent(id)}` });
+}
+
+export function getStoreSummary(): Promise<StoreSummary> {
+  return apiRequest({ url: "/api/products/summary" });
 }
 
 export function getCategories(): Promise<Category[]> {

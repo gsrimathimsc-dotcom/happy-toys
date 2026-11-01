@@ -1,13 +1,11 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using HappyToys.API.Data;
-using HappyToys.API.DTOs;
-using HappyToys.API.Interfaces;
 using HappyToys.API.Middleware;
-using HappyToys.API.Models;
-using HappyToys.API.Services;
+using HappyToys.Application;
+using HappyToys.Application.DTOs;
+using HappyToys.Infrastructure;
+using HappyToys.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
@@ -36,18 +34,8 @@ builder.Services.AddControllers()
         options.InvalidModelStateResponseFactory = context => new BadRequestObjectResult(BuildValidationError(context));
     });
 
-// In-memory data only: no database is installed or needed for this demo.
-var databaseName = builder.Configuration["Database:Name"] ?? "HappyToys";
-builder.Services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase(databaseName));
-
-builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddScoped<ICartService, CartService>();
-builder.Services.AddScoped<IWishlistService, WishlistService>();
-builder.Services.AddScoped<IOrderService, OrderService>();
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IAdminService, AdminService>();
-builder.Services.AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>();
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure(builder.Configuration);
 
 builder.Services
     .AddAuthentication(DemoTokenAuthHandler.SchemeName)
@@ -65,7 +53,7 @@ builder.Services.AddSwaggerGen(options =>
     {
         Title = "Happy Toys API",
         Version = "v1",
-        Description = "Demo e-commerce API using in-memory data. Authentication is not production-grade.",
+        Description = "Happy Toys e-commerce API, backed by PostgreSQL.",
     });
     options.AddSecurityDefinition("bearer", new OpenApiSecurityScheme
     {
@@ -81,10 +69,13 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
+// On a developer's computer the database prepares itself. Online, these steps
+// are run on purpose, so several server copies never migrate at the same time.
+if (app.Configuration.GetValue<bool>("Database:PrepareOnStartup"))
 {
-    var services = scope.ServiceProvider;
-    await DataSeeder.SeedAsync(services.GetRequiredService<AppDbContext>(), services.GetRequiredService<IPasswordHasher<User>>());
+    using var scope = app.Services.CreateScope();
+    await scope.ServiceProvider.GetRequiredService<AppDbContext>().Database.MigrateAsync();
+    await scope.ServiceProvider.GetRequiredService<DataSeeder>().SeedAsync();
 }
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();

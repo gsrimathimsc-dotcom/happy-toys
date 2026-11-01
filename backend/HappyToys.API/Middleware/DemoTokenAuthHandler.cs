@@ -1,6 +1,6 @@
 using System.Security.Claims;
 using System.Text.Encodings.Web;
-using HappyToys.API.Data;
+using HappyToys.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -8,7 +8,7 @@ using Microsoft.Extensions.Options;
 namespace HappyToys.API.Middleware;
 
 /// <summary>
-/// DEMO login check. Reads "Authorization: Bearer token" and looks the token
+/// Temporary login check, replaced by JWT in Step 2. Reads "Authorization: Bearer token" and looks the token
 /// up in the session table. It feeds ASP.NET's normal [Authorize] attributes,
 /// so a real provider can replace it later without touching the controllers.
 /// </summary>
@@ -31,7 +31,7 @@ public class DemoTokenAuthHandler(
 
         var token = header[BearerPrefix.Length..].Trim();
         var session = await db.UserSessions.AsNoTracking()
-            .Include(s => s.User)
+            .Include(s => s.User!).ThenInclude(u => u.Role)
             .FirstOrDefaultAsync(s => s.Token == token && s.ExpiresAt > DateTime.UtcNow);
         if (session?.User is null)
         {
@@ -41,7 +41,7 @@ public class DemoTokenAuthHandler(
         Claim[] claims =
         [
             new(ClaimTypes.NameIdentifier, session.User.Id),
-            new(ClaimTypes.Role, session.User.Role.ToString()),
+            new(ClaimTypes.Role, session.User.Role!.Name),
         ];
         var principal = new ClaimsPrincipal(new ClaimsIdentity(claims, SchemeName));
         return AuthenticateResult.Success(new AuthenticationTicket(principal, SchemeName));

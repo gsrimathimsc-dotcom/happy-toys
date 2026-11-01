@@ -26,7 +26,10 @@ export interface Product {
   discountPercentage: number;
   rating: number;
   reviewCount: number;
+  /** The main image */
   imageUrl: string;
+  /** Every image, main one first */
+  imageUrls: string[];
   /** Units available. 0 means out of stock. */
   stockQuantity: number;
   stockStatus: StockStatus;
@@ -37,6 +40,14 @@ export interface Product {
   isBestSeller: boolean;
   isNew: boolean;
   specifications: Record<string, string>;
+}
+
+/** Live figures for the home page */
+export interface StoreSummary {
+  productCount: number;
+  categoryCount: number;
+  averageRating: number;
+  highestDiscount: number;
 }
 
 export interface PagedResult<T> {

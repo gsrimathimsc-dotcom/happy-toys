@@ -1,5 +1,5 @@
-using HappyToys.API.DTOs;
-using HappyToys.API.Interfaces;
+using HappyToys.Application.DTOs;
+using HappyToys.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

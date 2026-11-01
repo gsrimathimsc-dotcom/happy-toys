@@ -1,7 +1,7 @@
-using HappyToys.API.DTOs;
-using HappyToys.API.Interfaces;
-using HappyToys.API.Models;
-using HappyToys.API.Services;
+using HappyToys.Application.DTOs;
+using HappyToys.Application.Interfaces;
+using HappyToys.Domain.Entities;
+using HappyToys.Application.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,20 +31,24 @@ public class ProductsController(IProductService products) : ApiControllerBase
         return Success(await products.SearchAsync(query));
     }
 
+    /// <summary>Live store figures shown on the home page.</summary>
+    [HttpGet("summary")]
+    public async Task<IActionResult> GetSummary() => Success(await products.GetStoreSummaryAsync());
+
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(string id) => Success(await products.GetDetailsAsync(id));
 
     [HttpPost]
-    [Authorize(Roles = nameof(UserRole.Admin))]
+    [Authorize(Roles = Role.Admin)]
     public async Task<IActionResult> Create(ProductRequest request) => Created(await products.CreateAsync(request));
 
     [HttpPut("{id}")]
-    [Authorize(Roles = nameof(UserRole.Admin))]
+    [Authorize(Roles = Role.Admin)]
     public async Task<IActionResult> Update(string id, ProductRequest request) =>
         Success(await products.UpdateAsync(id, request));
 
     [HttpDelete("{id}")]
-    [Authorize(Roles = nameof(UserRole.Admin))]
+    [Authorize(Roles = Role.Admin)]
     public async Task<IActionResult> Delete(string id)
     {
         await products.DeleteAsync(id);
