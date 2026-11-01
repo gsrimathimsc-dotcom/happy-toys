@@ -1,39 +1,39 @@
 # CLAUDE.md
-# HAPPY TOYS – E-COMMERCE APPLICATION
+# HAPPY TOYS – FULL-STACK E-COMMERCE APPLICATION
 
 ## 1. PROJECT OVERVIEW
 
-You are working as a Senior Full-Stack Developer, Software Architect, UI/UX Designer, and Code Reviewer.
+You are acting as a Senior Full-Stack Developer, Solution Architect, UI/UX Designer, Database Designer, and QA Engineer.
 
-Your task is to improve and complete an existing Toy Store E-commerce application named **Happy Toys**.
+The project is an online Toy Store E-commerce application named **Happy Toys**.
 
-The objective is to transform the existing prototype into a professional, modern, fully functional, responsive e-commerce application.
+An initial prototype already exists. Your primary responsibility is to analyse, improve, complete, and enhance the existing application into a fully functional, responsive, professional E-commerce platform.
 
 IMPORTANT:
-- First analyze the existing project.
-- Understand the current implementation.
-- Identify incomplete features, missing functionality, UI issues, and bugs.
-- Improve the existing application instead of unnecessarily recreating everything.
-- Preserve useful existing code and functionality.
-- Complete all existing features.
-- Add missing features wherever required.
-- Maintain clean architecture and reusable components.
+- Do not unnecessarily recreate the application from scratch.
+- Analyse the existing source code before making changes.
+- Preserve existing working functionality.
+- Identify incomplete features, broken components, UI issues, and missing integrations.
+- Complete existing functionalities.
+- Add missing business functionalities.
+- Improve the overall design, architecture, security, and performance.
+- Ensure frontend, backend, and database integrations work correctly.
+
+The final application should look and behave like a real commercial E-commerce website.
+
+---
 
 ## 2. TECHNOLOGY STACK
 
-Use the following technology stack:
-
 ### Frontend
-- React.js
-- TypeScript
-- Vite
+- React JS
+- JavaScript (ES6+)
 - React Router DOM
 - Tailwind CSS
-- Lucide React Icons
-- Axios for API communication
-- React Context API for state management
-- React Hook Form for form handling
-- Zod for validation
+- Axios
+- Context API for state management
+- Lucide React for icons
+- Responsive CSS
 
 ### Backend
 - ASP.NET Core Web API
@@ -41,347 +41,503 @@ Use the following technology stack:
 - Entity Framework Core
 - RESTful API architecture
 - Dependency Injection
-- DTOs and validation
-- Swagger / OpenAPI
+- DTO-based request and response models
+- Proper exception handling
+- Logging
 
 ### Database
-For the current demo version:
-- Use static JSON data or in-memory data.
-- Do not introduce a database without explicit approval.
-- Keep the backend architecture ready for future PostgreSQL integration.
+- PostgreSQL
+- pgAdmin 4
+- Entity Framework Core PostgreSQL provider (Npgsql)
+- Code First migrations
 
 ### Development Tools
 - Visual Studio Code
-- Visual Studio
+- Visual Studio (if required)
 - Git and GitHub
-- Swagger UI
 - Postman
+- Claude AI / Codex
 
-IMPORTANT:
-The existing Next.js frontend/backend prototype must be migrated to React.js frontend and ASP.NET Core backend. Do not retain Next.js as the application framework.
+---
 
-## 3. UI/UX DESIGN – PREMIUM E-COMMERCE THEME
+## 3. BRANDING AND UI/UX DESIGN
 
-Completely enhance the existing Happy Toys visual design.
-
-The application should look like a premium commercial e-commerce website, not a basic college project.
+Enhance the existing Happy Toys theme to create a visually attractive and premium shopping experience.
 
 ### Brand Identity
 
-Brand Name: HAPPY TOYS
+Business Name: Happy Toys
 
-Brand Personality:
-- Fun
+Brand personality:
+- Joyful
 - Trustworthy
 - Modern
-- Attractive
-- Family-friendly
+- Colourful
 - Professional
+- Family-friendly
 
-### Color Palette
+### Colour Palette
 
-Use a consistent, attractive business color palette.
+Use a balanced combination of attractive business colours.
 
-Primary Color:
-- Deep Royal Blue: #3155D9
+Primary Colour: Deep Royal Blue – #2447C5
 
-Secondary Color:
-- Vibrant Orange: #FF8A3D
+Secondary Colour: Vibrant Orange – #FF8A35
 
-Accent Color:
-- Sunshine Yellow: #FFD166
+Accent Colour: Sunshine Yellow – #FFD447
 
-Supporting Colors:
-- Soft Lavender: #EEE9FF
-- Mint Green: #DDF5E8
-- Light Background: #F8F9FD
-- Dark Text: #202B45
-- Secondary Text: #697386
-- White: #FFFFFF
+Supporting Colour: Soft Lavender – #EEEAFE
 
-Use colors consistently across buttons, navigation, cards, badges, banners, and other UI elements.
+Background: Warm White – #FFFDF9
 
-Avoid excessive bright colors. Maintain a balanced and premium appearance.
+Text Colour: Dark Navy – #172554
+
+Success: #16A34A
+
+Error: #DC2626
+
+Use these colours consistently throughout the application.
+
+Avoid excessive bright colours. Maintain a premium commercial appearance.
 
 ### Typography
 
-Use modern, readable fonts:
-- Primary font: Poppins
-- Secondary font: Inter
+Use modern fonts such as:
+- Poppins for headings.
+- Inter for body text.
 
 Typography requirements:
-- Clear heading hierarchy.
-- Readable body text.
+- Clear headings.
+- Comfortable reading sizes.
 - Consistent font weights.
-- Attractive product titles.
-- Proper spacing and line height.
+- Proper spacing.
+- Readable mobile text.
 
-### Design Requirements
+### Design Improvements
 
-- Modern and premium UI.
-- Attractive hero banners.
-- Beautiful product cards.
-- Professional navigation bar.
-- Smooth hover effects.
-- Subtle animations.
+- Modern hero banners.
+- High-quality toy product images.
+- Attractive category cards.
+- Premium product cards.
+- Smooth hover animations.
+- Modern buttons.
 - Consistent border radius.
-- Soft shadows.
-- Attractive buttons.
-- High-quality product images.
-- Proper whitespace.
-- Responsive layouts.
-- Consistent design system.
+- Subtle shadows.
+- Attractive promotional banners.
+- Professional footer.
+- Loading skeletons.
+- Toast notifications.
+- Empty-state illustrations.
+- Consistent spacing and alignment.
 
-Use reusable design components instead of writing styles independently for every page.
+Do not use emojis as substitutes for professional product images or icons.
 
-## 4. RESPONSIVE DESIGN – MOBILE FIRST
+---
 
-Mobile responsiveness is a mandatory requirement.
+## 4. MOBILE-FIRST RESPONSIVE DESIGN
 
-Design and optimize the application for:
+Mobile responsiveness is a critical requirement.
 
-- Mobile phones: 320px–480px
-- Large mobile phones: 481px–767px
-- Tablets: 768px–1023px
-- Laptops: 1024px–1440px
-- Large desktops: 1441px and above
+Design the application mobile-first and ensure it works properly on:
 
-### Mobile UI Requirements
+- Small mobile devices (320px).
+- Standard mobile devices (375px–430px).
+- Tablets (768px).
+- Laptops (1024px–1440px).
+- Large desktop screens (1920px).
 
-1. Responsive navigation with hamburger menu.
-2. Mobile-friendly search bar.
-3. Product grid:
-   - 2 columns on mobile where appropriate.
-   - 3 columns on tablets.
-   - 4 or more columns on desktops depending on available space.
-4. Responsive product images.
-5. Touch-friendly buttons.
-6. Proper spacing between interactive elements.
-7. Mobile-friendly filters using drawer or bottom sheet.
-8. Responsive shopping cart.
-9. Mobile-friendly checkout forms.
-10. No horizontal scrolling.
-11. Responsive banners.
-12. Sticky mobile shopping/cart controls where appropriate.
+### Mobile Requirements
 
-Test the application at multiple screen sizes.
+- Responsive navigation menu.
+- Mobile hamburger menu.
+- Easy-to-use search functionality.
+- Mobile-friendly product cards.
+- Two-column product grid where appropriate.
+- Touch-friendly buttons.
+- Properly sized input fields.
+- Responsive product detail pages.
+- Mobile-friendly cart.
+- Mobile-friendly checkout.
+- Sticky Add to Cart button where appropriate.
+- Responsive filters and sorting.
+- No horizontal scrolling.
+- No overlapping elements.
+- Optimized product images.
+
+All pages must be tested at different screen sizes.
 
 Do not simply shrink the desktop layout. Design a proper mobile experience.
 
-## 5. COMPLETE E-COMMERCE FUNCTIONALITIES
+---
 
-Analyze the existing application and implement or complete the following features.
+## 5. APPLICATION MODULES AND FUNCTIONALITIES
 
-### A. HOME PAGE
+Implement and complete the following modules.
 
+### MODULE 1: HOME PAGE
+
+- Responsive navigation bar.
+- Happy Toys logo.
+- Product search.
+- Login / Register.
+- Wishlist icon.
+- Shopping cart with item count.
 - Attractive hero banner.
-- Promotional offers.
-- Shop by category.
-- Featured products.
-- Best-selling products.
-- New arrivals.
-- Trending toys.
-- Discount products.
+- Shop by Categories.
+- Featured Products.
+- Best Sellers.
+- New Arrivals.
+- Trending Toys.
+- Special Offers.
+- Discount banners.
 - Customer testimonials.
 - Newsletter subscription.
-- Promotional banners.
 - Footer with useful links.
 
-### B. PRODUCT CATALOG
+### MODULE 2: PRODUCT CATEGORIES
 
-- Display all products.
-- Product category filtering.
-- Search by product name.
-- Search by keyword.
-- Filter by price range.
-- Filter by ratings.
-- Sort by price low to high.
-- Sort by price high to low.
-- Sort by popularity.
-- Sort by newest arrivals.
-- Pagination or load more.
-- Product availability status.
+Implement these categories:
 
-### C. PRODUCT DETAILS
+1. Educational Toys
+2. Baby Toys
+3. Remote Control Toys
+4. Soft Toys
+5. Building Blocks
+6. Outdoor Toys
+7. Board Games
+8. Action Figures
+9. Puzzles
+10. Musical Toys
 
-- Multiple product images where available.
+Features:
+- Display products by category.
+- Category-wise filtering.
+- Category images.
+- Product count.
+- Dynamic category navigation.
+
+### MODULE 3: PRODUCT MANAGEMENT
+
+Create complete product management functionality.
+
+Admin should be able to:
+
+- Add products.
+- Edit products.
+- Delete products.
+- View all products.
+- Upload product images.
+- Assign categories.
+- Update product prices.
+- Set discount prices.
+- Manage stock quantities.
+- Activate/deactivate products.
+
+Product information:
+
+- Product ID.
 - Product name.
 - Product description.
+- Category.
+- Brand.
 - Price.
-- Original price.
-- Discount percentage.
-- Star ratings.
-- Customer reviews.
+- Discount price.
+- Product images.
+- Rating.
+- Stock quantity.
+- Age group.
+- Product specifications.
+- Created date.
+- Product status.
+
+### MODULE 4: PRODUCT LISTING
+
+- Product grid.
+- Product search.
+- Category filters.
+- Price range filter.
+- Brand filter.
+- Age group filter.
+- Availability filter.
+- Sort by price.
+- Sort by popularity.
+- Sort by newest.
+- Pagination.
+- Wishlist.
+- Add to Cart.
+- Product ratings.
+- Discount labels.
+
+### MODULE 5: PRODUCT DETAILS
+
+- Multiple product images.
+- Image gallery.
+- Product name.
+- Product description.
+- Price and discount.
+- Customer ratings.
 - Stock availability.
+- Age recommendation.
+- Product specifications.
 - Quantity selector.
 - Add to Cart.
 - Buy Now.
-- Add to Wishlist.
+- Wishlist.
 - Related products.
-- Recently viewed products.
+- Customer reviews.
 
-### D. SHOPPING CART
+### MODULE 6: USER AUTHENTICATION
+
+Implement:
+
+- User registration.
+- User login.
+- Secure password hashing.
+- JWT-based authentication.
+- Logout.
+- User profile.
+- Forgot password workflow.
+- Change password.
+- Role-based authorization.
+
+User roles:
+
+- Customer.
+- Admin.
+
+Protect admin pages and APIs from unauthorized access.
+
+Never store plain-text passwords.
+
+### MODULE 7: SHOPPING CART
 
 - Add products to cart.
 - Remove products.
-- Increase/decrease quantity.
-- Validate available quantity.
+- Increase quantity.
+- Decrease quantity.
+- Validate stock availability.
 - Calculate subtotal.
-- Calculate discount.
-- Calculate delivery charges.
-- Calculate final amount.
-- Apply coupon codes.
-- Empty cart screen.
-- Continue shopping.
-- Proceed to checkout.
+- Apply discount.
+- Calculate total.
+- Display cart item count.
+- Persist cart for logged-in users.
+- Support guest cart where appropriate.
 
-Cart data should persist across page refreshes using localStorage for the demo version.
+### MODULE 8: WISHLIST
 
-### E. WISHLIST
-
-- Add products to wishlist.
-- Remove products.
+- Add to wishlist.
+- Remove from wishlist.
 - View wishlist.
-- Move wishlist items to cart.
-- Persist wishlist using localStorage.
+- Move wishlist product to cart.
+- Prevent duplicate wishlist entries.
 
-### F. USER AUTHENTICATION
+### MODULE 9: CHECKOUT
 
-For demo purposes, implement basic mock authentication.
+Implement a complete checkout process.
 
-- Registration.
-- Login.
-- Logout.
-- Form validation.
-- Password visibility toggle.
-- User profile.
-- Edit profile.
-- Demo user session.
-- Protected routes.
-
-Clearly indicate that demo authentication is not production-grade security.
-
-### G. CHECKOUT
-
-Create a professional multi-step checkout experience.
-
-Step 1: Customer Information
-- Name.
+Customer information:
+- Full name.
 - Email.
 - Mobile number.
-
-Step 2: Delivery Address
 - Address.
 - City.
 - State.
 - PIN code.
 
-Step 3: Order Summary
-- Products.
-- Quantity.
-- Subtotal.
-- Discount.
-- Delivery charges.
-- Final total.
+Checkout functionality:
+- Delivery address selection.
+- Order summary.
+- Product quantity.
+- Shipping charges.
+- Discount calculations.
+- Final payable amount.
+- Payment method selection.
 
-Step 4: Payment
-- Cash on Delivery (demo).
-- UPI (simulation only).
-- Card payment (simulation only).
+Initially implement Cash on Delivery and a clearly labelled simulated online payment option.
 
-Do not integrate real payment gateways.
+Do not claim that real payments are processed unless a genuine payment gateway is integrated.
 
-### H. ORDER MANAGEMENT
+### MODULE 10: ORDER MANAGEMENT
 
-- Place demo order.
-- Generate unique order number.
-- Order confirmation page.
+Customer features:
+- Place order.
+- View order confirmation.
 - View order history.
 - View order details.
-- Order status.
-- Cancel order where permitted.
-- Download printable order summary.
+- Cancel eligible orders.
+- Track order status.
 
-### I. CUSTOMER REVIEWS
+Order statuses:
+- Pending.
+- Confirmed.
+- Processing.
+- Shipped.
+- Delivered.
+- Cancelled.
 
-- Display product ratings.
-- Display customer reviews.
-- Submit demo reviews.
-- Rating summary.
-- Validate review forms.
-
-### J. ADMIN DASHBOARD
-
-Create a simple admin dashboard for demonstration.
-
-Dashboard features:
-- Total products.
-- Total orders.
-- Total customers.
-- Total sales (based on demo data).
-- Recent orders.
-- Best-selling products.
-- Sales overview chart.
-
-Admin product management:
-- View products.
-- Add product.
-- Edit product.
-- Delete product.
-- Manage categories.
-- Update stock.
-
-Admin order management:
-- View orders.
-- View order details.
+Admin features:
+- View all orders.
+- View customer information.
 - Update order status.
+- Manage cancellations.
+- View order details.
 
-Use mock authentication and clearly identify this as a demonstration admin panel.
+### MODULE 11: CUSTOMER REVIEWS
 
-## 6. BACKEND – ASP.NET CORE WEB API
+- Submit product reviews.
+- Star ratings.
+- Review comments.
+- Display customer reviews.
+- Admin moderation.
+- Prevent duplicate reviews where appropriate.
 
-Develop a clean and maintainable ASP.NET Core Web API.
+### MODULE 12: ADMIN DASHBOARD
+
+Create a professional admin dashboard.
+
+Dashboard cards:
+- Total Revenue.
+- Total Orders.
+- Total Customers.
+- Total Products.
+- Low Stock Products.
+- Pending Orders.
+
+Admin modules:
+- Product Management.
+- Category Management.
+- Customer Management.
+- Order Management.
+- Inventory Management.
+- Review Management.
+- Dashboard Reports.
+
+Add charts for:
+- Monthly sales.
+- Order status.
+- Top-selling products.
+- Revenue trends.
+
+Only display actual database-backed figures.
+
+---
+
+## 6. BACKEND ARCHITECTURE
+
+Use ASP.NET Core Web API.
+
+Follow a clean and maintainable architecture.
 
 Suggested structure:
 
 HappyToys.API
-|
-|-- Controllers
-|   |-- ProductsController.cs
-|   |-- CategoriesController.cs
-|   |-- CartController.cs
-|   |-- OrdersController.cs
-|   |-- UsersController.cs
-|   |-- WishlistController.cs
-|   |-- AdminController.cs
-|
-|-- DTOs
-|-- Models
-|-- Services
-|-- Interfaces
-|-- Repositories
-|-- Data
-|-- Middleware
-|-- Validators
-|-- Program.cs
-|-- appsettings.json
+- Controllers
+- Middleware
+- Extensions
+- Program.cs
+- appsettings.json
 
-Use suitable architectural patterns without unnecessary complexity.
+HappyToys.Application
+- DTOs
+- Interfaces
+- Services
+- Validators
 
-### API Endpoints
+HappyToys.Domain
+- Entities
+- Enums
+- Common
+
+HappyToys.Infrastructure
+- Data
+- Repositories
+- Configurations
+- Migrations
+- Services
+
+Use dependency injection.
+
+Implement:
+- RESTful API endpoints.
+- DTOs.
+- Service layer.
+- Repository pattern where beneficial.
+- Entity Framework Core.
+- Global exception handling.
+- Logging.
+- Input validation.
+- Proper HTTP status codes.
+- Swagger / OpenAPI documentation.
+
+Avoid unnecessary abstraction and overengineering.
+
+---
+
+## 7. DATABASE DESIGN – POSTGRESQL
+
+Use PostgreSQL as the primary database.
+
+Create appropriate database tables:
+
+1. Users
+2. Roles
+3. UserAddresses
+4. Categories
+5. Products
+6. ProductImages
+7. Carts
+8. CartItems
+9. Wishlists
+10. WishlistItems
+11. Orders
+12. OrderItems
+13. Payments
+14. Reviews
+15. InventoryTransactions
+16. Coupons
+
+### Database Requirements
+
+- Use primary keys and foreign keys.
+- Define appropriate relationships.
+- Add unique constraints where necessary.
+- Use decimal/numeric for monetary values.
+- Add indexes for frequently searched fields.
+- Use proper nullable/non-nullable columns.
+- Maintain created and updated timestamps.
+- Implement database migrations.
+- Avoid duplicate data.
+- Use transactions for order placement and inventory updates.
+
+Create realistic seed data for demonstration.
+
+Use PostgreSQL connection strings through configuration and environment variables.
+
+Never commit database passwords or secrets to GitHub.
+
+---
+
+## 8. API ENDPOINTS
+
+Implement REST API endpoints for the following:
+
+Authentication:
+- POST /api/auth/register
+- POST /api/auth/login
+- POST /api/auth/forgot-password
 
 Products:
 - GET /api/products
 - GET /api/products/{id}
-- GET /api/products/search
-- GET /api/products/category/{categoryId}
 - POST /api/products
 - PUT /api/products/{id}
 - DELETE /api/products/{id}
 
 Categories:
 - GET /api/categories
-- GET /api/categories/{id}
+- POST /api/categories
+- PUT /api/categories/{id}
+- DELETE /api/categories/{id}
 
 Cart:
 - GET /api/cart
@@ -392,7 +548,7 @@ Cart:
 Wishlist:
 - GET /api/wishlist
 - POST /api/wishlist
-- DELETE /api/wishlist/{productId}
+- DELETE /api/wishlist/{id}
 
 Orders:
 - POST /api/orders
@@ -400,207 +556,196 @@ Orders:
 - GET /api/orders/{id}
 - PUT /api/orders/{id}/status
 
-Users:
-- POST /api/users/register
-- POST /api/users/login
-- GET /api/users/profile
-- PUT /api/users/profile
+Reviews:
+- GET /api/products/{id}/reviews
+- POST /api/products/{id}/reviews
 
 Admin:
 - GET /api/admin/dashboard
+- GET /api/admin/customers
 - GET /api/admin/orders
-- GET /api/admin/products
+- GET /api/admin/reports
 
-Use appropriate HTTP status codes and error responses.
+Add authentication and authorization where required.
 
-IMPORTANT:
-All APIs must work with mock/in-memory data in the demo version. Do not add a database dependency unless explicitly approved.
+---
 
-## 7. SAMPLE DATA
+## 9. SECURITY REQUIREMENTS
 
-Create at least 30 realistic toy products.
-
-Categories:
-- Educational Toys
-- Baby Toys
-- Remote Control Toys
-- Soft Toys
-- Building Blocks
-- Outdoor Toys
-- Board Games
-- Action Figures
-
-Each product should contain:
-
-- Id
-- Name
-- CategoryId
-- Description
-- Price
-- OriginalPrice
-- DiscountPercentage
-- Rating
-- ReviewCount
-- ImageUrl
-- StockQuantity
-- IsActive
-- CreatedDate
-
-Use Indian Rupees (₹) throughout the application.
-
-Use appropriate, high-quality toy images.
-
-## 8. CODE QUALITY AND ARCHITECTURE
-
-Follow these coding standards:
-
-- TypeScript strict mode.
-- Reusable React components.
-- Functional components and hooks.
-- Separation of concerns.
-- Proper API service layer.
-- Centralized error handling.
-- Consistent naming conventions.
-- Proper DTO usage in backend.
-- Dependency injection.
-- Async/await.
+- Secure password hashing.
+- JWT authentication.
+- Role-based access control.
 - Input validation.
-- Clean and readable code.
+- SQL injection protection through parameterized ORM queries.
+- CORS configuration.
+- Secure configuration management.
+- Protect sensitive API endpoints.
+- Validate product prices and stock on the server.
+- Do not trust client-side order totals.
+- Prevent unauthorized admin operations.
+- Handle authentication token expiration.
+
+---
+
+## 10. PERFORMANCE AND CODE QUALITY
+
+- Use reusable React components.
 - Avoid duplicate code.
-- Avoid unnecessary dependencies.
-- No unused variables or imports.
-- No console errors.
-- No broken navigation.
-- No placeholder buttons that do nothing.
+- Use lazy loading where appropriate.
+- Optimize product images.
+- Use pagination for large product lists.
+- Avoid unnecessary API calls.
+- Handle API loading and error states.
+- Maintain consistent coding standards.
+- Use meaningful variable and function names.
+- Write maintainable code.
+- Avoid deprecated libraries and APIs.
 
-## 9. TESTING AND QUALITY ASSURANCE
+---
 
-Test all major application flows.
+## 11. TESTING AND VALIDATION
 
-Frontend:
-- Page navigation.
-- Product search.
-- Filtering and sorting.
-- Add to cart.
-- Cart quantity updates.
-- Wishlist.
-- Checkout validation.
-- Login and logout.
-- Responsive layouts.
+Test the following end-to-end workflows:
 
-Backend:
-- API endpoint functionality.
-- Request validation.
-- Error handling.
-- Product retrieval.
-- Order creation.
-- Cart operations.
-- Admin operations.
+1. Customer registration.
+2. Customer login.
+3. Product browsing.
+4. Product searching.
+5. Category filtering.
+6. Product details.
+7. Add to cart.
+8. Update cart quantity.
+9. Wishlist operations.
+10. Checkout.
+11. Order creation.
+12. Order history.
+13. Admin login.
+14. Admin product management.
+15. Admin category management.
+16. Admin order management.
+17. Stock updates.
+18. Responsive mobile navigation.
+19. Mobile checkout.
+20. API error handling.
 
-Check:
-- No TypeScript errors.
-- No C# compilation errors.
-- No broken API calls.
-- No broken images.
-- No horizontal scrolling on mobile.
-- No non-functional buttons.
-- No missing pages.
+Ensure all existing features continue working after enhancements.
 
-Run the frontend and backend builds and fix all identified errors.
+Fix all critical errors before considering the project complete.
 
-## 10. DEVELOPMENT AND EXECUTION
+---
 
-Provide clear instructions for:
+## 12. DEVELOPMENT WORKFLOW – IMPORTANT
 
-Frontend:
-- Node.js installation.
-- npm installation.
-- Dependency installation.
-- React application startup.
+Before modifying the application:
+
+STEP 1: Analyse the complete existing project.
+
+STEP 2: Identify:
+- Existing pages.
+- Existing components.
+- Current technologies.
+- Existing functionality.
+- Missing functionality.
+- Broken functionality.
+- UI/UX issues.
+- Existing backend integrations.
+- Existing database configuration.
+
+STEP 3: Prepare a feature assessment report with three categories:
+- Working.
+- Partially Working.
+- Not Implemented.
+
+STEP 4: Prepare an implementation plan.
+
+STEP 5: Improve the UI/UX design and mobile responsiveness.
+
+STEP 6: Complete the frontend functionalities.
+
+STEP 7: Implement ASP.NET Core Web API.
+
+STEP 8: Configure PostgreSQL and Entity Framework Core.
+
+STEP 9: Integrate frontend with backend APIs.
+
+STEP 10: Implement authentication and authorization.
+
+STEP 11: Test all workflows.
+
+STEP 12: Fix issues and verify the complete application.
+
+IMPORTANT RULES:
+
+- Do not delete existing working features.
+- Do not replace real API integrations with mock data.
+- Do not leave buttons without functionality.
+- Do not create pages that contain only static designs.
+- Do not hardcode database-backed information in frontend components.
+- Do not silently ignore errors.
+- Do not modify unrelated files unnecessarily.
+- Do not assume a feature is complete just because its UI exists.
+- Maintain consistency throughout the application.
+
+---
+
+## 13. DOCUMENTATION
+
+Maintain the following documentation:
+
+- README.md
+- CLAUDE.md
+- PROJECT_ARCHITECTURE.md
+- DATABASE_SCHEMA.md
+- API_DOCUMENTATION.md
+- SETUP_GUIDE.md
+
+Include:
+- Installation steps.
+- Required software.
 - Environment configuration.
+- PostgreSQL database setup.
+- EF Core migration commands.
+- Backend startup instructions.
+- Frontend startup instructions.
+- Admin demo credentials.
+- API testing instructions.
 
-Backend:
-- .NET SDK installation.
-- ASP.NET Core project setup.
-- NuGet package installation.
-- Backend startup.
-- Swagger access.
+Never invent demo credentials. Create and document valid seed credentials during setup.
 
-Explain how to run frontend and backend simultaneously.
+---
 
-## 11. IMPLEMENTATION APPROACH
+## 14. FINAL ACCEPTANCE CRITERIA
 
-Follow this sequence.
+The project is complete only when:
 
-PHASE 1 – EXISTING PROJECT ANALYSIS
-- Inspect all existing files.
-- Identify the current architecture.
-- Identify existing functionalities.
-- Identify incomplete features.
-- Identify bugs and design issues.
-- Prepare a list of improvements.
+1. React frontend runs successfully.
+2. ASP.NET Core backend runs successfully.
+3. PostgreSQL connection works.
+4. Database migrations execute successfully.
+5. Customer registration and login work.
+6. Product data loads from the backend.
+7. Shopping cart works correctly.
+8. Wishlist works correctly.
+9. Checkout creates valid orders.
+10. Order management works.
+11. Admin dashboard displays real data.
+12. Product CRUD works.
+13. Responsive mobile design works.
+14. All important buttons and navigation links work.
+15. No critical console errors.
+16. No critical backend errors.
+17. All major user journeys are tested.
 
-PHASE 2 – TECHNOLOGY MIGRATION
-- Migrate Next.js frontend to React.js with Vite.
-- Develop ASP.NET Core Web API.
-- Preserve existing useful business logic.
-- Configure frontend/backend communication.
+FINAL GOAL:
 
-PHASE 3 – UI/UX REDESIGN
-- Establish the Happy Toys design system.
-- Improve colors, fonts, typography, and layout.
-- Redesign all pages.
-- Implement mobile-first responsive design.
+Transform the existing Happy Toys prototype into a complete, professional, modern, mobile-responsive, full-stack E-commerce application using:
 
-PHASE 4 – FUNCTIONALITY COMPLETION
-- Complete existing features.
-- Implement missing e-commerce features.
-- Connect React components to backend APIs.
-- Add mock data and state persistence.
+Frontend: React JS
+Backend: ASP.NET Core Web API
+Database: PostgreSQL
 
-PHASE 5 – TESTING
-- Test all features.
-- Test mobile responsiveness.
-- Fix bugs.
-- Run production builds.
+Build it as a real business-ready demonstration application with an attractive UI, reliable functionality, clean architecture, and maintainable code.
 
-PHASE 6 – DOCUMENTATION
-- Update README.md.
-- Document the architecture.
-- Document API endpoints.
-- Provide installation instructions.
-- Explain how to run the application.
+Start by analysing the existing project. Do not start coding before completing the initial assessment.
 
-## 12. IMPORTANT RULES FOR CLAUDE
-
-1. Never assume an existing feature is complete without checking its implementation.
-2. Never remove an existing working feature without a valid reason.
-3. Do not recreate the entire project unnecessarily.
-4. Do not introduce a database in this demo version.
-5. Do not use Next.js as the final frontend or backend framework.
-6. Use React.js for frontend and ASP.NET Core for backend.
-7. Always maintain mobile responsiveness.
-8. Every button and link must perform its intended action.
-9. Never leave unfinished TODO implementations in completed features.
-10. Do not break existing working functionality while adding new features.
-11. Before changing major architecture, explain the proposed changes.
-12. Work phase by phase and verify each phase before moving forward.
-13. Do not claim that a feature is completed unless it has been implemented and tested.
-14. If any requirement is unclear, ask before making major assumptions.
-15. Keep the code beginner-friendly and explain important implementation decisions.
-
-## FINAL EXPECTATION
-
-Deliver a polished, fully functional, responsive Happy Toys E-commerce application using:
-
-FRONTEND: React.js + TypeScript + Vite
-
-BACKEND: ASP.NET Core Web API + C#
-
-DATA: Mock/In-memory data (No database)
-
-DESIGN: Premium, colorful, modern, business-oriented and mobile-first.
-
-The final application must be suitable for a professional client demonstration and future database integration.
-
-Start with PHASE 1: Analyze the existing project. Do not immediately start rewriting files. First understand the current application and prepare an implementation plan.
+Work incrementally, explain important changes in simple English, and provide a summary of completed and remaining features after each development phase.
