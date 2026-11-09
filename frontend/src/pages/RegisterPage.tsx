@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { ApiError } from "@/services/apiClient";
+import { applyServerErrors } from "@/lib/formErrors";
 import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/context/ToastContext";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
@@ -53,14 +54,8 @@ export default function RegisterPage() {
         showToast("You already have an account. Please log in.", "error");
         return;
       }
-      if (error instanceof ApiError) {
-        // Show any field-level messages from the server next to their fields.
-        (["name", "email", "password"] as const).forEach((field) => {
-          const key = Object.keys(error.fieldErrors).find((k) => k.toLowerCase() === field);
-          const message = key ? error.fieldErrors[key][0] : undefined;
-          if (message) setError(field, { message });
-        });
-      }
+      // Show any field-level messages from the server next to their fields.
+      applyServerErrors(error, setError, ["name", "email", "password"]);
       setFormError(error instanceof Error ? error.message : "Could not create your account.");
     }
   };

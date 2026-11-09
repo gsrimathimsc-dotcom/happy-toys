@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { applyServerErrors } from "@/lib/formErrors";
 import { Package, Pencil, Plus, TicketPercent, Trash2 } from "lucide-react";
 import { AdminHeading, LoadState, StatCard, TablePanel } from "@/components/admin/AdminParts";
 import Button from "@/components/ui/Button";
@@ -41,6 +42,7 @@ export default function AdminOffersPage() {
     register,
     handleSubmit,
     reset,
+    setError,
     formState: { errors, isSubmitting },
   } = useForm<CouponValues>({ resolver: zodResolver(couponSchema), defaultValues: EMPTY });
 
@@ -70,6 +72,7 @@ export default function AdminOffersPage() {
       setEditing(null);
       reload();
     } catch (err) {
+      applyServerErrors(err, setError, ["code", "value", "minimumOrderAmount"], "code");
       showToast(err instanceof Error ? err.message : "Could not save the coupon.", "error");
     }
   };

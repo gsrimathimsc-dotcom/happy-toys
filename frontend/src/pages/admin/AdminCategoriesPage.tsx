@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { applyServerErrors } from "@/lib/formErrors";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import { AdminHeading, LoadState, TablePanel } from "@/components/admin/AdminParts";
 import Button from "@/components/ui/Button";
@@ -27,6 +28,7 @@ export default function AdminCategoriesPage() {
     register,
     handleSubmit,
     reset,
+    setError,
     formState: { errors, isSubmitting },
   } = useForm<CategoryValues>({ resolver: zodResolver(categorySchema), defaultValues: EMPTY });
 
@@ -43,6 +45,7 @@ export default function AdminCategoriesPage() {
       setEditing(null);
       reload();
     } catch (err) {
+      applyServerErrors(err, setError, ["name", "description"], "name");
       showToast(err instanceof Error ? err.message : "Could not save the category.", "error");
     }
   };

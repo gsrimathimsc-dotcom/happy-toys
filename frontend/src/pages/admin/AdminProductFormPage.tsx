@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { applyServerErrors } from "@/lib/formErrors";
 import { AdminHeading, LoadState } from "@/components/admin/AdminParts";
 import Button from "@/components/ui/Button";
 import FormField from "@/components/ui/FormField";
@@ -58,6 +59,7 @@ function ProductForm({ product }: { product: Product | null }) {
     register,
     handleSubmit,
     reset,
+    setError,
     formState: { errors, isSubmitting },
   } = useForm<ProductValues>({
     resolver: zodResolver(productSchema),
@@ -79,6 +81,7 @@ function ProductForm({ product }: { product: Product | null }) {
       showToast(`${values.name} saved`, "success");
       navigate("/admin/products");
     } catch (err) {
+      applyServerErrors(err, setError, ["name", "brand", "description", "price", "originalPrice", "imageUrl", "stockQuantity"], "name");
       showToast(err instanceof Error ? err.message : "Could not save the product.", "error");
     }
   };
