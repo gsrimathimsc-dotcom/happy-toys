@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -17,6 +17,11 @@ export default function LoginPage() {
   const { login } = useAuth();
   const { showToast } = useToast();
   const [formError, setFormError] = useState("");
+  const errorRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (formError) errorRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [formError]);
 
   const {
     register,
@@ -43,7 +48,9 @@ export default function LoginPage() {
     <AuthCard title="Welcome back" subtitle="Log in to continue shopping for happy moments.">
       <form onSubmit={handleSubmit(submit)} noValidate className="space-y-5">
         {formError && (
-          <p className="rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-600">{formError}</p>
+          <div ref={errorRef} role="alert" className="rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-600">
+            {formError}
+          </div>
         )}
         <FormField
           label="Email address"

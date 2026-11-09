@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { ApiError } from "@/services/apiClient";
 import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/context/ToastContext";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
@@ -16,10 +17,19 @@ export default function RegisterPage() {
   const { register: createAccount } = useAuth();
   const { showToast } = useToast();
   const [formError, setFormError] = useState("");
+  const [alreadyRegistered, setAlreadyRegistered] = useState(false);
+  const errorRef = useRef<HTMLDivElement>(null);
+
+  // The message sits above the form, so bring it into view on small screens.
+  useEffect(() => {
+    if (formError) errorRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [formError]);
 
   const {
     register,
     handleSubmit,
+    setError,
+    setFocus,
     formState: { errors, isSubmitting },
   } = useForm<RegisterValues>({
     resolver: zodResolver(registerSchema),
@@ -28,11 +38,29 @@ export default function RegisterPage() {
 
   const submit = async ({ name, email, password }: RegisterValues) => {
     setFormError("");
+    setAlreadyRegistered(false);
     try {
       await createAccount(name, email, password);
       showToast(`Welcome to Happy Toys, ${name.split(" ")[0]}!`, "success");
       navigate("/");
     } catch (error) {
+      if (error instanceof ApiError && error.status === 409) {
+        // The email is taken: say so on the email field and point to Log in.
+        setAlreadyRegistered(true);
+        setFormError("You already have an account with this email.");
+        setError("email", { message: "An account with this email already exists." });
+        setFocus("email");
+        showToast("You already have an account. Please log in.", "error");
+        return;
+      }
+      if (error instanceof ApiError) {
+        // Show any field-level messages from the server next to their fields.
+        (["name", "email", "password"] as const).forEach((field) => {
+          const key = Object.keys(error.fieldErrors).find((k) => k.toLowerCase() === field);
+          const message = key ? error.fieldErrors[key][0] : undefined;
+          if (message) setError(field, { message });
+        });
+      }
       setFormError(error instanceof Error ? error.message : "Could not create your account.");
     }
   };
@@ -41,7 +69,17 @@ export default function RegisterPage() {
     <AuthCard title="Create your account" subtitle="It only takes a minute to join the Happy Toys family.">
       <form onSubmit={handleSubmit(submit)} noValidate className="space-y-5">
         {formError && (
-          <p className="rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-600">{formError}</p>
+          <div ref={errorRef} role="alert" className="rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-600">
+            {formError}
+            {alreadyRegistered && (
+              <>
+                {" "}
+                <Link to="/login" className="font-bold underline">
+                  Log in instead
+                </Link>
+              </>
+            )}
+          </div>
         )}
         <FormField label="Full name" placeholder="e.g. Priya Sharma" autoComplete="name" error={errors.name?.message} {...register("name")} />
         <FormField label="Email address" type="email" placeholder="you@example.com" autoComplete="email" error={errors.email?.message} {...register("email")} />
