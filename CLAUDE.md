@@ -806,3 +806,16 @@ No API or database changes. Checked by build only; not yet watched in a browser.
 - Hero background shifts slowly and its circles drift. Product cards lift with a soft glow on hover. Buttons lift on hover.
 - Wishlist heart and navbar count badges pop when they change. Mobile menu slides down.
 - New keyframes (`pop`, `drift`, `gradient-shift`, `drop-in`) are in `index.css`. All motion is switched off for visitors who set "reduce motion" on their device.
+
+### 2026-11-09 – Full UI test on the live site and fixes
+
+Tested in Chrome against the live store (public pages at 320 to 1920px, customer checkout, and the admin panel signed in).
+
+Fixed in code:
+- `GET /api/admin/reports/monthly` returned 500 because PostgreSQL was given a date without a UTC kind. This also broke the dashboard monthly chart and the Monthly Sales page (`AdminService.GetMonthlySalesAsync`).
+- `POST /api/categories` with an existing name returned 500 instead of 409 (`CategoryService.CreateAsync` skipped its own duplicate check). The error middleware now also turns any database unique-key failure into a 409.
+- Admin forms (category, coupon, product) and registration show server messages next to the field (`lib/formErrors.ts`).
+
+The two backend fixes are committed but need the API redeployed (`backend/`, project `happy-toys-api`).
+
+Known gaps (not built): customer order history, profile page, cancelling an order as a customer, product reviews, forgot password, using coupons at checkout. A deleted product still counts against its category, so that category cannot be deleted until the product is moved.
