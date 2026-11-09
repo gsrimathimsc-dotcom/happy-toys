@@ -137,11 +137,11 @@ export default function Navbar() {
 
       {/* Mobile drawer */}
       {menuOpen && (
-        <div className="animate-fade-in border-t border-slate-100 bg-white lg:hidden">
+        <div className="max-h-[60dvh] animate-fade-in overflow-y-auto overscroll-contain border-t border-slate-100 bg-white lg:hidden">
           <div className="container-page flex flex-col gap-1 py-4">
             {user ? (
-              <div className="mb-2 flex items-center justify-between rounded-xl bg-primary-light px-4 py-3">
-                <span className="font-semibold text-primary">Hi, {user.name}</span>
+              <div className="mb-2 flex items-center justify-between gap-3 rounded-xl bg-primary-light px-4 py-3">
+                <span className="min-w-0 truncate font-semibold text-primary">Hi, {user.name}</span>
                 <button onClick={logout} className="text-sm font-semibold text-navy">
                   Log out
                 </button>

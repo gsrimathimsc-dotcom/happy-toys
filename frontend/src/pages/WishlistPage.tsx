@@ -27,7 +27,7 @@ export default function WishlistPage() {
 
   return (
     <div className="container-page py-8">
-      <h1 className="mb-6 text-3xl font-extrabold tracking-tight text-navy">
+      <h1 className="mb-6 text-2xl font-extrabold sm:text-3xl tracking-tight text-navy">
         My Wishlist <span className="text-lg font-semibold text-muted">({products.length})</span>
       </h1>
       {products.length === 0 ? (

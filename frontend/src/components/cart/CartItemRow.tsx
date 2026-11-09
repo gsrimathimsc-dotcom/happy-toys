@@ -44,7 +44,7 @@ export default function CartItemRow({ item }: { item: CartItem }) {
           <p className="order-last w-full text-right font-bold text-navy sm:order-none sm:w-24">{formatPrice(item.price * item.quantity)}</p>
           <button
             onClick={() => removeFromCart(item.productId)}
-            className="flex h-9 w-9 items-center justify-center rounded-full text-slate-400 transition hover:bg-red-50 hover:text-red-500"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-slate-400 transition hover:bg-red-50 hover:text-red-500"
             aria-label={`Remove ${item.name}`}
           >
             <Trash2 className="h-5 w-5" />

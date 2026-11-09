@@ -5,7 +5,7 @@ import Logo from "./Logo";
 /** Two-column card shared by the Login and Register pages. */
 export default function AuthCard({ title, subtitle, children }: { title: string; subtitle: string; children: ReactNode }) {
   return (
-    <div className="container-page py-12">
+    <div className="container-page py-6 sm:py-12">
       <div className="mx-auto grid max-w-5xl overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-slate-100 lg:grid-cols-2">
         {/* Brand panel */}
         <div className="relative hidden flex-col justify-between overflow-hidden bg-gradient-to-br from-primary to-indigo-700 p-10 text-white lg:flex">
@@ -35,10 +35,10 @@ export default function AuthCard({ title, subtitle, children }: { title: string;
         </div>
 
         {/* Form panel */}
-        <div className="p-8 sm:p-10">
+        <div className="p-5 sm:p-10">
           <h1 className="text-2xl font-extrabold text-navy sm:text-3xl">{title}</h1>
           <p className="mt-1.5 text-muted">{subtitle}</p>
-          <div className="mt-8">{children}</div>
+          <div className="mt-6 sm:mt-8">{children}</div>
           <p className="mt-6 rounded-xl bg-secondary-light px-4 py-3 text-xs text-navy">
             <strong>Demo store:</strong> please don&apos;t use a password you use anywhere else.
           </p>

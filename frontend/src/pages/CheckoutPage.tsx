@@ -114,7 +114,7 @@ export default function CheckoutPage() {
 
   return (
     <div className="container-page py-8">
-      <h1 className="mb-6 text-3xl font-extrabold tracking-tight text-navy">Checkout</h1>
+      <h1 className="mb-6 text-2xl font-extrabold sm:text-3xl tracking-tight text-navy">Checkout</h1>
 
       <form
         onSubmit={handleSubmit(submitOrder, () => showToast("Please fix the highlighted fields.", "error"))}
@@ -123,7 +123,7 @@ export default function CheckoutPage() {
       >
         <div className="space-y-6 lg:col-span-2">
           {/* Delivery details */}
-          <section className="rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
+          <section className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm sm:p-6">
             <h2 className="text-lg font-bold text-navy">1. Delivery Details</h2>
             <div className="mt-5 grid gap-4 sm:grid-cols-2">
               <FormField label="Full Name" placeholder="e.g. Priya Sharma" autoComplete="name" error={errors.name?.message} {...register("name")} />
@@ -170,7 +170,7 @@ export default function CheckoutPage() {
           </section>
 
           {/* Payment */}
-          <section className="rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
+          <section className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm sm:p-6">
             <h2 className="text-lg font-bold text-navy">2. Payment Method</h2>
             <p className="mt-1 text-sm text-muted">This is a demo - no real payment will be taken.</p>
             <div className="mt-5 grid gap-3 sm:grid-cols-3">

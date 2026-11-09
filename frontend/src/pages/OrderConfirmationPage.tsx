@@ -55,20 +55,20 @@ export default function OrderConfirmationPage() {
         <span className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-green-100">
           <CircleCheck className="h-12 w-12 text-green-600" />
         </span>
-        <h1 className="mt-5 text-3xl font-extrabold text-navy sm:text-4xl">Order placed successfully!</h1>
+        <h1 className="mt-5 text-2xl font-extrabold text-navy sm:text-4xl">Order placed successfully!</h1>
         <p className="mt-2 text-muted">
           Thank you, {customer.name.split(" ")[0]}! Your toys are getting ready for their journey.
         </p>
         <div className="mt-5 inline-flex flex-wrap items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 shadow-sm ring-1 ring-slate-100">
           <span className="text-sm text-muted">Order number</span>
-          <span className="font-mono text-lg font-bold text-primary">{order.id}</span>
+          <span className="break-all font-mono text-base font-bold text-primary sm:text-lg">{order.id}</span>
         </div>
       </div>
 
       <div className="mx-auto mt-10 grid max-w-5xl gap-6 lg:grid-cols-3">
         <div className="space-y-6 lg:col-span-2">
           {/* Items */}
-          <section className="rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
+          <section className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm sm:p-6">
             <h2 className="flex items-center gap-2 text-lg font-bold text-navy">
               <Package className="h-5 w-5 text-primary" /> Items in this order
             </h2>
@@ -77,7 +77,7 @@ export default function OrderConfirmationPage() {
                 <li key={item.productId} className="flex items-center gap-4 py-3">
                   <img src={item.imageUrl} alt={item.name} className="h-16 w-16 rounded-xl object-cover" />
                   <div className="min-w-0 flex-1">
-                    <p className="font-medium text-navy">{item.name}</p>
+                    <p className="line-clamp-2 font-medium text-navy">{item.name}</p>
                     <p className="text-sm text-muted">
                       {item.quantity} x {formatPrice(item.price)}
                     </p>
@@ -108,7 +108,7 @@ export default function OrderConfirmationPage() {
                   {deliveryDate.toLocaleDateString("en-IN", { weekday: "short", day: "numeric", month: "short" })}
                 </span>
               </p>
-              <p className="flex items-center gap-1.5">
+              <p className="flex items-center gap-1.5 break-all">
                 <Mail className="h-4 w-4" /> Confirmation for {customer.email}
               </p>
             </InfoCard>

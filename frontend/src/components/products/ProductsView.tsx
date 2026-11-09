@@ -34,6 +34,16 @@ export default function ProductsView() {
 
   const queryString = searchParams.toString();
 
+  // Stop the page behind the filter drawer from scrolling.
+  useEffect(() => {
+    if (!showFilters) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [showFilters]);
+
   // Fetch products whenever the URL filters change.
   useEffect(() => {
     let cancelled = false;
@@ -93,7 +103,7 @@ export default function ProductsView() {
       {/* Page header */}
       <div className="mb-6">
         <p className="text-sm text-muted">Home / Products{activeCategory ? ` / ${activeCategory.name}` : ""}</p>
-        <h1 className="mt-1 text-3xl font-extrabold tracking-tight text-navy">{heading}</h1>
+        <h1 className="mt-1 break-words text-2xl font-extrabold sm:text-3xl tracking-tight text-navy">{heading}</h1>
         {activeCategory && !search && <p className="mt-1 text-muted">{activeCategory.description}</p>}
       </div>
 
@@ -128,9 +138,10 @@ export default function ProductsView() {
               )}
             </div>
             <label className="flex items-center gap-2 text-sm">
-              <span className="text-muted">Sort by</span>
+              <span className="hidden text-muted sm:inline">Sort by</span>
               <select
                 value={sort}
+                aria-label="Sort by"
                 onChange={(e) => updateParams({ sort: e.target.value })}
                 className="rounded-full border border-slate-200 bg-white px-3 py-2 font-semibold text-navy outline-none focus:border-primary"
               >

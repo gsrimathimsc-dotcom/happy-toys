@@ -15,7 +15,7 @@ export default function OrderSummary({ totals, children, title = "Order Summary"
   const remainingForFreeDelivery = FREE_DELIVERY_THRESHOLD - sellingTotal;
 
   return (
-    <div className="rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
+    <div className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm sm:p-6">
       <h2 className="text-lg font-bold text-navy">{title}</h2>
       <dl className="mt-4 space-y-3 text-sm">
         <Row label={`Subtotal (${totals.itemCount} item${totals.itemCount === 1 ? "" : "s"})`} value={formatPrice(totals.subtotal)} />

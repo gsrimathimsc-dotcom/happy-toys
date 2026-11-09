@@ -28,7 +28,7 @@ export default function CartPage() {
   return (
     <div className="container-page py-8">
       <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
-        <h1 className="text-3xl font-extrabold tracking-tight text-navy">
+        <h1 className="text-2xl font-extrabold tracking-tight text-navy sm:text-3xl">
           Shopping Cart <span className="text-lg font-semibold text-muted">({totals.itemCount} items)</span>
         </h1>
         <button onClick={clearCart} className="text-sm font-semibold text-red-500 hover:text-red-600">

@@ -18,7 +18,7 @@ export default function QuantitySelector({
 }: QuantitySelectorProps) {
   const button = cn(
     "flex items-center justify-center text-navy transition hover:bg-slate-100 disabled:opacity-40 disabled:hover:bg-transparent",
-    size === "sm" ? "h-8 w-8" : "h-10 w-10"
+    size === "sm" ? "h-10 w-10 sm:h-8 sm:w-8" : "h-10 w-10"
   );
   return (
     <div className="inline-flex items-center overflow-hidden rounded-full border border-slate-200 bg-white">

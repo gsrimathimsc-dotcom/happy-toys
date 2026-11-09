@@ -78,6 +78,20 @@
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    overflow-x: hidden;
+  }
+  /* Inputs below 16px make iPhones zoom the page on focus. */
+  @media (width < 40rem) {
+    input:not([type="checkbox"]):not([type="radio"]),
+    select,
+    textarea {
+      font-size: 1rem;
+    }
+  }
 }
 
 /* Small reusable helpers */

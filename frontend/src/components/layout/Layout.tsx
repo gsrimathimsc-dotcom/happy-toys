@@ -12,7 +12,7 @@ const scrollKey = (location: Location) =>
 export default function Layout() {
   return (
     <Providers>
-      <div className="flex min-h-screen flex-col font-sans">
+      <div className="flex min-h-dvh flex-col font-sans">
         <Navbar />
         <main className="flex-1">
           <Outlet />

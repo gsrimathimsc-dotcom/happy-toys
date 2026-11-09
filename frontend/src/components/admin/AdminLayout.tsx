@@ -17,7 +17,7 @@ const LINKS = [
 /** The tabs shown at the top of every admin page. */
 export default function AdminLayout() {
   return (
-    <div className="container-page py-6">
+    <div className="container-page py-4 sm:py-6">
       <nav
         aria-label="Admin"
         className="mb-6 flex gap-1 overflow-x-auto rounded-2xl border border-slate-100 bg-white p-2 shadow-sm"

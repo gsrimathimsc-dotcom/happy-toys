@@ -94,7 +94,7 @@ export default function ProductDetailsView({ productId }: { productId: string })
   };
 
   return (
-    <div className="container-page py-8">
+    <div className={cn("container-page py-8", product.stockQuantity > 0 && "pb-28 lg:pb-8")}>
       {/* Breadcrumb */}
       <nav className="mb-6 flex flex-wrap items-center gap-1 text-sm text-muted" aria-label="Breadcrumb">
         <Link to="/" className="hover:text-primary">Home</Link>
@@ -108,7 +108,7 @@ export default function ProductDetailsView({ productId }: { productId: string })
         <span className="font-medium text-navy">{product.name}</span>
       </nav>
 
-      <div className="grid animate-fade-in gap-10 lg:grid-cols-2">
+      <div className="grid animate-fade-in gap-6 lg:grid-cols-2 lg:gap-10">
         {/* Image */}
         <div className="relative overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-sm">
           {product.discountPercentage > 0 && (
@@ -122,7 +122,7 @@ export default function ProductDetailsView({ productId }: { productId: string })
         {/* Info */}
         <div>
           <p className="text-sm font-semibold uppercase tracking-wide text-primary">{product.brand}</p>
-          <h1 className="mt-2 text-3xl font-extrabold leading-tight text-navy sm:text-4xl">{product.name}</h1>
+          <h1 className="mt-2 break-words text-2xl font-extrabold leading-tight text-navy sm:text-4xl">{product.name}</h1>
           <div className="mt-3">
             <StarRating rating={product.rating} reviewCount={product.reviewCount} size="md" />
           </div>
@@ -174,7 +174,8 @@ export default function ProductDetailsView({ productId }: { productId: string })
                   <span className="text-sm text-muted">({inCart} already in your cart)</span>
                 )}
               </div>
-              <div className="flex flex-wrap gap-3">
+              {/* Sticky at the bottom of the screen on mobile, inline on desktop */}
+              <div className="fixed inset-x-0 bottom-0 z-40 flex gap-3 border-t border-slate-200 bg-white/95 px-4 py-3 shadow-[0_-4px_16px_rgba(15,23,42,0.08)] backdrop-blur pb-[max(0.75rem,env(safe-area-inset-bottom))] lg:static lg:z-auto lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-none">
                 <Button
                   size="lg"
                   onClick={handleAddToCart}
@@ -183,7 +184,7 @@ export default function ProductDetailsView({ productId }: { productId: string })
                   className="flex-1"
                 >
                   {busy !== "cart" && <ShoppingCart className="h-5 w-5" />}
-                  {maxQuantity === 0 ? "Max quantity in cart" : "Add to Cart"}
+                  {maxQuantity === 0 ? "Max in cart" : "Add to Cart"}
                 </Button>
                 <Button
                   size="lg"
