@@ -31,3 +31,8 @@ export function getStoreSummary(): Promise<StoreSummary> {
 export function getCategories(): Promise<Category[]> {
   return apiRequest({ url: "/api/categories" });
 }
+
+/** A few matches for the search box dropdown. */
+export function searchSuggestions(term: string, limit = 6): Promise<PagedResult<Product>> {
+  return apiRequest({ url: "/api/products", params: { q: term, pageSize: limit } });
+}
