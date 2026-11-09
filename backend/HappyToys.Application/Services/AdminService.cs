@@ -105,7 +105,9 @@ public class AdminService(IAppDbContext db) : IAdminService
         var today = IndiaDate(DateTime.UtcNow);
         var firstMonth = new DateOnly(today.Year, today.Month, 1).AddMonths(-(months - 1));
         // A day of slack covers the difference between UTC and Indian time.
-        var since = firstMonth.ToDateTime(TimeOnly.MinValue).Subtract(IndiaOffset).AddDays(-1);
+        // PostgreSQL only accepts a UTC date here, so the kind is set explicitly.
+        var since = DateTime.SpecifyKind(
+            firstMonth.ToDateTime(TimeOnly.MinValue).Subtract(IndiaOffset).AddDays(-1), DateTimeKind.Utc);
         var orders = await OrdersWithDetails()
             .Where(o => o.Status != OrderStatus.Cancelled && o.CreatedAt >= since)
             .ToListAsync();
