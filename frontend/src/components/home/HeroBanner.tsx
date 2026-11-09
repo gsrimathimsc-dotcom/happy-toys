@@ -13,10 +13,10 @@ export default function HeroBanner() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-primary via-blue-600 to-indigo-700">
+    <section className="relative overflow-hidden bg-gradient-to-br from-primary via-blue-600 to-indigo-700 bg-[length:200%_200%] animate-gradient">
       {/* Decorative shapes */}
-      <div className="absolute -left-20 -top-20 h-72 w-72 rounded-full bg-white/10" />
-      <div className="absolute -bottom-24 right-1/3 h-64 w-64 rounded-full bg-secondary/20" />
+      <div className="absolute -left-20 -top-20 h-72 w-72 animate-drift rounded-full bg-white/10" />
+      <div className="absolute -bottom-24 right-1/3 h-64 w-64 animate-drift rounded-full bg-secondary/20 [animation-delay:3s]" />
 
       <div className="container-page relative grid items-center gap-10 py-14 lg:grid-cols-2 lg:py-20">
         <div className="animate-slide-up text-white">

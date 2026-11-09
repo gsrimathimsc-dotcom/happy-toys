@@ -208,7 +208,7 @@ export default function ProductDetailsView({ productId }: { productId: string })
               saved ? "text-red-500" : "text-muted hover:text-red-500"
             )}
           >
-            <Heart className={cn("h-5 w-5", saved && "fill-red-500")} />
+            <Heart key={String(saved)} className={cn("h-5 w-5", saved && "animate-pop fill-red-500")} />
             {saved ? "Saved to wishlist" : "Add to wishlist"}
           </button>
 

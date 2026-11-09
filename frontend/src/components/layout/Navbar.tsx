@@ -12,7 +12,7 @@ import SearchBar from "./SearchBar";
 function CountBadge({ count }: { count: number }) {
   if (count <= 0) return null;
   return (
-    <span className="absolute -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1 text-[11px] font-bold text-white ring-2 ring-white">
+    <span key={count} className="absolute animate-pop -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1 text-[11px] font-bold text-white ring-2 ring-white">
       {count > 99 ? "99+" : count}
     </span>
   );
@@ -137,7 +137,7 @@ export default function Navbar() {
 
       {/* Mobile drawer */}
       {menuOpen && (
-        <div className="max-h-[60dvh] animate-fade-in overflow-y-auto overscroll-contain border-t border-slate-100 bg-white lg:hidden">
+        <div className="max-h-[60dvh] animate-drop-in overflow-y-auto overscroll-contain border-t border-slate-100 bg-white lg:hidden">
           <div className="container-page flex flex-col gap-1 py-4">
             {user ? (
               <div className="mb-2 flex items-center justify-between gap-3 rounded-xl bg-primary-light px-4 py-3">

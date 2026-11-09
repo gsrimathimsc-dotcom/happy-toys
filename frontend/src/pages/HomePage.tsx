@@ -10,6 +10,7 @@ import OfferBanner from "@/components/home/OfferBanner";
 import ProductSection from "@/components/home/ProductSection";
 import Testimonials from "@/components/home/Testimonials";
 import Button from "@/components/ui/Button";
+import Reveal from "@/components/ui/Reveal";
 import Spinner from "@/components/ui/Spinner";
 
 interface HomeProducts {
@@ -48,7 +49,7 @@ export default function HomePage() {
   return (
     <>
       <HeroBanner />
-      <CategoriesSection />
+      <Reveal><CategoriesSection /></Reveal>
       {error ? (
         <div className="container-page flex flex-col items-center pt-16 text-center">
           <CircleAlert className="h-10 w-10 text-red-500" />
@@ -67,7 +68,7 @@ export default function HomePage() {
             products={products.featured}
             linkHref="/products"
           />
-          <OfferBanner />
+          <Reveal><OfferBanner /></Reveal>
           <ProductSection
             title="Best Sellers"
             subtitle="The toys families love the most"
@@ -87,8 +88,8 @@ export default function HomePage() {
           />
         </>
       )}
-      <Testimonials />
-      <Newsletter />
+      <Reveal><Testimonials /></Reveal>
+      <Reveal><Newsletter /></Reveal>
     </>
   );
 }

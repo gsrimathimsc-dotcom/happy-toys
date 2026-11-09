@@ -797,3 +797,12 @@ No API or database changes. Checked by type-check and build only; NOT yet tried 
 - Admin tables already scroll sideways inside their panel; unchanged.
 
 Still to do: test every page at 320px, 375px, 768px and 1024px on a device or emulator.
+
+### 2026-11-09 – Theme animations (frontend only)
+
+No API or database changes. Checked by build only; not yet watched in a browser.
+
+- Pages fade in on navigation (`Layout.tsx`). Home sections fade up on scroll via `components/ui/Reveal.tsx`.
+- Hero background shifts slowly and its circles drift. Product cards lift with a soft glow on hover. Buttons lift on hover.
+- Wishlist heart and navbar count badges pop when they change. Mobile menu slides down.
+- New keyframes (`pop`, `drift`, `gradient-shift`, `drop-in`) are in `index.css`. All motion is switched off for visitors who set "reduce motion" on their device.

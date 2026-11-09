@@ -1,5 +1,6 @@
 import type { Product } from "@/types";
 import ProductGrid from "@/components/products/ProductGrid";
+import Reveal from "@/components/ui/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
 
 interface ProductSectionProps {
@@ -13,7 +14,7 @@ interface ProductSectionProps {
 export default function ProductSection({ title, subtitle, products, linkHref }: ProductSectionProps) {
   if (products.length === 0) return null;
   return (
-    <section className="container-page pt-16">
+    <Reveal className="container-page pt-16"><section>
       <SectionHeading
         title={title}
         subtitle={subtitle}
@@ -21,6 +22,6 @@ export default function ProductSection({ title, subtitle, products, linkHref }: 
         linkHref={linkHref}
       />
       <ProductGrid products={products} />
-    </section>
+    </section></Reveal>
   );
 }

@@ -46,7 +46,7 @@ export default function Button({
 }: ButtonProps) {
   const classes = cn(
     "inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200",
-    "active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60 disabled:active:scale-100",
+    "hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:scale-[0.97] disabled:hover:translate-y-0 disabled:hover:shadow-none disabled:cursor-not-allowed disabled:opacity-60 disabled:active:scale-100",
     VARIANTS[variant],
     SIZES[size],
     fullWidth && "w-full",

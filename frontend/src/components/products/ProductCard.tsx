@@ -23,7 +23,7 @@ export default function ProductCard({ product }: { product: Product }) {
   };
 
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+    <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/20 hover:shadow-xl hover:shadow-primary/10">
       {/* Badges */}
       <div className="absolute left-3 top-3 z-10 flex flex-col gap-1.5">
         {product.discountPercentage > 0 && (
@@ -47,7 +47,7 @@ export default function ProductCard({ product }: { product: Product }) {
         )}
         aria-label={saved ? "Remove from wishlist" : "Add to wishlist"}
       >
-        <Heart className={cn("h-5 w-5", saved && "fill-red-500")} />
+        <Heart key={String(saved)} className={cn("h-5 w-5", saved && "animate-pop fill-red-500")} />
       </button>
 
       {/* Image */}
@@ -57,7 +57,7 @@ export default function ProductCard({ product }: { product: Product }) {
           alt={product.name}
           loading="lazy"
           className={cn(
-            "h-full w-full object-cover transition-transform duration-500 group-hover:scale-105",
+            "h-full w-full object-cover transition-transform duration-500 group-hover:scale-110",
             outOfStock && "opacity-60 grayscale"
           )}
         />
