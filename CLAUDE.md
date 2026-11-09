@@ -784,3 +784,16 @@ Still not done: product image upload (admin enters an image address), customer r
 - Dashboard now has charts (plain SVG/CSS, no chart library): monthly sales, revenue trend (7 days), orders by status, top-selling products. All figures come from the database. `GET /api/admin/dashboard` now also returns `orderStatusCounts`.
 - Demo data: with `Seed:SampleOrders=true` (set in `appsettings.Development.json` only) the seeder adds 8 sample customers and about 70 orders over 6 months, once, only when the orders table is empty. Sample customers use the `Seed:CustomerPassword`.
 - Not run yet: backend tests, and the seeder against a live database.
+
+### 2026-11-09 – Mobile usability pass (frontend only)
+
+No API or database changes. Checked by type-check and build only; NOT yet tried on a real phone or emulator.
+
+- Inputs, selects and text areas are 16px below 640px so iPhones do not zoom on focus (`index.css`). Page no longer scrolls sideways.
+- Product details: Add to Cart and Buy Now are a sticky bar at the bottom on mobile, inline on desktop.
+- Mobile menu scrolls when the category list is long. Filter drawer locks page scroll while open. "Sort by" label hidden on phones.
+- Touch targets: quantity buttons and cart remove button are 40px on mobile.
+- Page height uses `dvh`. Smaller headings and panel padding on phones for Checkout, Cart, Wishlist, Order confirmation, Login/Register and Admin. Long order numbers and emails wrap.
+- Admin tables already scroll sideways inside their panel; unchanged.
+
+Still to do: test every page at 320px, 375px, 768px and 1024px on a device or emulator.
