@@ -1,7 +1,7 @@
 import { useState } from "react";
+import AdminSearch from "@/components/admin/AdminSearch";
 import { AdminHeading, LoadState, TablePanel, formatDateTime } from "@/components/admin/AdminParts";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
-import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 import { useLoad } from "@/hooks/useLoad";
 import { formatPrice } from "@/lib/utils";
 import { getCustomers } from "@/services/adminService";
@@ -10,11 +10,10 @@ export default function AdminCustomersPage() {
   useDocumentTitle("Customers");
   const { data, error, reload } = useLoad(getCustomers);
   const [search, setSearch] = useState("");
-  const debouncedSearch = useDebouncedValue(search, 300);
 
   if (!data) return <LoadState error={error} onRetry={reload} />;
 
-  const term = debouncedSearch.trim().toLowerCase();
+  const term = search.trim().toLowerCase();
   const customers = data.filter((c) => [c.name, c.email, c.mobile].some((text) => text.toLowerCase().includes(term)));
 
   return (
@@ -23,14 +22,7 @@ export default function AdminCustomersPage() {
         title="Customers"
         subtitle={`${data.length} registered customers. Total spent leaves out cancelled orders.`}
         action={
-          <input
-            type="search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search customers"
-            aria-label="Search customers"
-            className="input-field !w-full sm:!w-64"
-          />
+          <AdminSearch onSearch={setSearch} label="Search customers" placeholder="Search customers" className="!w-full sm:!w-64" />
         }
       />
 

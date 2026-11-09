@@ -1,4 +1,5 @@
 import { useState } from "react";
+import AdminSearch from "@/components/admin/AdminSearch";
 import { AdminHeading, LoadState, StockBadge, TablePanel } from "@/components/admin/AdminParts";
 import Button from "@/components/ui/Button";
 import { useToast } from "@/context/ToastContext";
@@ -10,11 +11,15 @@ import type { Product } from "@/types";
 export default function AdminStockPage() {
   useDocumentTitle("Stock");
   const { data, error, reload } = useLoad(getAdminProducts);
+  const [search, setSearch] = useState("");
 
   if (!data) return <LoadState error={error} onRetry={reload} />;
 
   // Lowest stock first, so what needs attention is at the top.
-  const products = data.filter((p) => p.isActive).sort((a, b) => a.stockQuantity - b.stockQuantity);
+  const term = search.trim().toLowerCase();
+  const products = data
+    .filter((p) => p.isActive && [p.name, p.brand, p.categoryName, p.id].some((text) => text.toLowerCase().includes(term)))
+    .sort((a, b) => a.stockQuantity - b.stockQuantity);
   const totalUnits = products.reduce((sum, p) => sum + p.stockQuantity, 0);
 
   return (
@@ -23,6 +28,8 @@ export default function AdminStockPage() {
         title="Current Stock"
         subtitle={`${products.length} products, ${totalUnits.toLocaleString("en-IN")} units. Lowest stock is shown first.`}
       />
+      <AdminSearch onSearch={setSearch} label="Search stock" placeholder="Search by name, brand or category" className="mb-4" />
+      {products.length === 0 && <p className="mb-4 text-sm text-muted">No products match your search.</p>}
       <TablePanel fit>
         <thead className="border-b border-slate-100 text-xs uppercase text-muted">
           <tr>

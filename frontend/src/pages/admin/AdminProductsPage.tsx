@@ -1,11 +1,11 @@
 import { useState } from "react";
+import AdminSearch from "@/components/admin/AdminSearch";
 import { Link } from "react-router-dom";
 import { Pencil, Plus, RotateCcw, Trash2 } from "lucide-react";
 import { AdminHeading, LoadState, StockBadge, TablePanel } from "@/components/admin/AdminParts";
 import Button from "@/components/ui/Button";
 import { useToast } from "@/context/ToastContext";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
-import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 import { useLoad } from "@/hooks/useLoad";
 import { formatPrice } from "@/lib/utils";
 import { deleteProduct, getAdminProducts, toProductInput, updateProduct } from "@/services/adminService";
@@ -16,11 +16,10 @@ export default function AdminProductsPage() {
   const { showToast } = useToast();
   const { data, error, reload } = useLoad(getAdminProducts);
   const [search, setSearch] = useState("");
-  const debouncedSearch = useDebouncedValue(search, 300);
 
   if (!data) return <LoadState error={error} onRetry={reload} />;
 
-  const term = debouncedSearch.trim().toLowerCase();
+  const term = search.trim().toLowerCase();
   const products = data.filter((p) =>
     [p.name, p.brand, p.categoryName, p.id].some((text) => text.toLowerCase().includes(term))
   );
@@ -56,14 +55,7 @@ export default function AdminProductsPage() {
         }
       />
 
-      <input
-        type="search"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        placeholder="Search by name, brand or category"
-        aria-label="Search products"
-        className="input-field mb-4"
-      />
+      <AdminSearch onSearch={setSearch} label="Search products" placeholder="Search by name, brand or category" className="mb-4" />
 
       <TablePanel fit>
         <thead className="border-b border-slate-100 text-xs uppercase text-muted">

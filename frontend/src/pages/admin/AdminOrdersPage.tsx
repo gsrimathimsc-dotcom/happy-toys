@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import AdminSearch from "@/components/admin/AdminSearch";
 import { AdminHeading, formatDateTime, LoadState, OrderStatusBadge, TablePanel } from "@/components/admin/AdminParts";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { useLoad } from "@/hooks/useLoad";
@@ -13,12 +14,20 @@ export default function AdminOrdersPage() {
   useDocumentTitle("Orders");
   const [status, setStatus] = useState<OrderStatus | "">("");
   const { data, error, reload } = useLoad(() => getAdminOrders(status || undefined), status);
+  const [search, setSearch] = useState("");
+
+  const term = search.trim().toLowerCase();
+  const orders = data?.filter((o) =>
+    [o.id, o.customer.name, o.customer.mobile, o.customer.email, ...o.items.map((i) => i.name)].some((text) =>
+      text.toLowerCase().includes(term)
+    )
+  );
 
   return (
     <>
       <AdminHeading
         title="Orders"
-        subtitle={data ? `${data.length} order${data.length === 1 ? "" : "s"}` : undefined}
+        subtitle={orders ? `${orders.length} order${orders.length === 1 ? "" : "s"}` : undefined}
         action={
           <label className="flex items-center gap-2 text-sm">
             <span className="text-muted">Status</span>
@@ -38,9 +47,11 @@ export default function AdminOrdersPage() {
         }
       />
 
-      {!data ? (
+      <AdminSearch onSearch={setSearch} label="Search orders" placeholder="Search by order number, customer, mobile or toy" className="mb-4" />
+
+      {!orders ? (
         <LoadState error={error} onRetry={reload} />
-      ) : data.length === 0 ? (
+      ) : orders.length === 0 ? (
         <p className="rounded-2xl border border-slate-100 bg-white p-6 text-sm text-muted shadow-sm">No orders to show.</p>
       ) : (
         <TablePanel>
@@ -55,7 +66,7 @@ export default function AdminOrdersPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
-            {data.map((order) => (
+            {orders.map((order) => (
               <tr key={order.id}>
                 <td className="p-3 font-mono text-xs">
                   <Link to={`/admin/orders/${order.id}`} className="font-semibold text-primary hover:underline">
