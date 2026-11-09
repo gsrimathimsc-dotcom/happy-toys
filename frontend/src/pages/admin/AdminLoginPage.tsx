@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { ShieldCheck } from "lucide-react";
 import Button from "@/components/ui/Button";
+import HomeLink from "@/components/ui/HomeLink";
 import FormField from "@/components/ui/FormField";
 import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/context/ToastContext";
@@ -46,6 +47,9 @@ export default function AdminLoginPage() {
 
   return (
     <div className="w-full">
+      <div className="mx-auto mb-3 max-w-md">
+        <HomeLink label="Back to store" />
+      </div>
       <div className="mx-auto max-w-md rounded-3xl bg-white p-8 shadow-xl ring-1 ring-slate-100 sm:p-10">
         <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-light text-primary">
           <ShieldCheck className="h-6 w-6" />

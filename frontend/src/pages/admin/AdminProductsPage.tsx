@@ -5,6 +5,7 @@ import { AdminHeading, LoadState, StockBadge, TablePanel } from "@/components/ad
 import Button from "@/components/ui/Button";
 import { useToast } from "@/context/ToastContext";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
+import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 import { useLoad } from "@/hooks/useLoad";
 import { formatPrice } from "@/lib/utils";
 import { deleteProduct, getAdminProducts, toProductInput, updateProduct } from "@/services/adminService";
@@ -15,10 +16,11 @@ export default function AdminProductsPage() {
   const { showToast } = useToast();
   const { data, error, reload } = useLoad(getAdminProducts);
   const [search, setSearch] = useState("");
+  const debouncedSearch = useDebouncedValue(search, 300);
 
   if (!data) return <LoadState error={error} onRetry={reload} />;
 
-  const term = search.trim().toLowerCase();
+  const term = debouncedSearch.trim().toLowerCase();
   const products = data.filter((p) =>
     [p.name, p.brand, p.categoryName, p.id].some((text) => text.toLowerCase().includes(term))
   );

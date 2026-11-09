@@ -1,20 +1,43 @@
-import { useEffect, useState, type FormEvent } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { Search } from "lucide-react";
+import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 
 /** Search box used in the navbar. Sends the user to /products?q=... */
 export default function SearchBar() {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const [searchParams] = useSearchParams();
   const currentSearch = searchParams.get("q") ?? "";
   const [term, setTerm] = useState(currentSearch);
+  const debouncedTerm = useDebouncedValue(term.trim(), 400);
+  // The last search this box put in the URL itself.
+  const sentTerm = useRef(currentSearch);
 
-  // Keep the box in step with the URL, e.g. when a search is cleared.
-  useEffect(() => setTerm(currentSearch), [currentSearch]);
+  // Keep the box in step with the URL, e.g. when a search is cleared elsewhere.
+  useEffect(() => {
+    if (currentSearch !== sentTerm.current) {
+      sentTerm.current = currentSearch;
+      setTerm(currentSearch);
+    }
+  }, [currentSearch]);
+
+  // While browsing the products, search as the customer types (after a short pause).
+  useEffect(() => {
+    if (pathname !== "/products" || debouncedTerm === currentSearch) return;
+    sentTerm.current = debouncedTerm;
+    const params = new URLSearchParams(searchParams);
+    if (debouncedTerm) params.set("q", debouncedTerm);
+    else params.delete("q");
+    navigate(`/products?${params.toString()}`, { replace: true, preventScrollReset: true });
+    // Only a new debounced term should trigger this.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedTerm]);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     const q = term.trim();
+    sentTerm.current = q;
     navigate(q ? `/products?q=${encodeURIComponent(q)}` : "/products");
   };
 

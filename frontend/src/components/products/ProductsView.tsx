@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { CircleAlert, PackageSearch, SlidersHorizontal, X } from "lucide-react";
 import { useCategories } from "@/hooks/useCategories";
 import { SORT_OPTIONS } from "@/lib/constants";
@@ -102,7 +102,12 @@ export default function ProductsView() {
     <div className="container-page py-8">
       {/* Page header */}
       <div className="mb-6">
-        <p className="text-sm text-muted">Home / Products{activeCategory ? ` / ${activeCategory.name}` : ""}</p>
+        <p className="text-sm text-muted">
+          <Link to="/" className="font-medium hover:text-primary">Home</Link>
+          {" / "}
+          {activeCategory ? <Link to="/products" className="hover:text-primary">Products</Link> : "Products"}
+          {activeCategory ? ` / ${activeCategory.name}` : ""}
+        </p>
         <h1 className="mt-1 break-words text-2xl font-extrabold sm:text-3xl tracking-tight text-navy">{heading}</h1>
         {activeCategory && !search && <p className="mt-1 text-muted">{activeCategory.description}</p>}
       </div>

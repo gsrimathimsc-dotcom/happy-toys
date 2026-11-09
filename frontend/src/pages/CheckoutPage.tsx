@@ -17,6 +17,7 @@ import type { PaymentMethod } from "@/types";
 import { checkoutSchema, type CheckoutValues } from "@/validation/schemas";
 import OrderSummary from "@/components/cart/OrderSummary";
 import Button from "@/components/ui/Button";
+import HomeLink from "@/components/ui/HomeLink";
 import EmptyState from "@/components/ui/EmptyState";
 import FormField from "@/components/ui/FormField";
 import Spinner from "@/components/ui/Spinner";
@@ -114,6 +115,7 @@ export default function CheckoutPage() {
 
   return (
     <div className="container-page py-8">
+      <HomeLink className="mb-2" />
       <h1 className="mb-6 text-2xl font-extrabold sm:text-3xl tracking-tight text-navy">Checkout</h1>
 
       <form

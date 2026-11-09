@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { AdminHeading, LoadState, TablePanel, formatDateTime } from "@/components/admin/AdminParts";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
+import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 import { useLoad } from "@/hooks/useLoad";
 import { formatPrice } from "@/lib/utils";
 import { getCustomers } from "@/services/adminService";
@@ -9,10 +10,11 @@ export default function AdminCustomersPage() {
   useDocumentTitle("Customers");
   const { data, error, reload } = useLoad(getCustomers);
   const [search, setSearch] = useState("");
+  const debouncedSearch = useDebouncedValue(search, 300);
 
   if (!data) return <LoadState error={error} onRetry={reload} />;
 
-  const term = search.trim().toLowerCase();
+  const term = debouncedSearch.trim().toLowerCase();
   const customers = data.filter((c) => [c.name, c.email, c.mobile].some((text) => text.toLowerCase().includes(term)));
 
   return (

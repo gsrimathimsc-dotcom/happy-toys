@@ -7,6 +7,7 @@ import type { Product } from "@/types";
 import ProductGrid from "@/components/products/ProductGrid";
 import EmptyState from "@/components/ui/EmptyState";
 import Spinner from "@/components/ui/Spinner";
+import HomeLink from "@/components/ui/HomeLink";
 
 export default function WishlistPage() {
   useDocumentTitle("My Wishlist");
@@ -27,6 +28,7 @@ export default function WishlistPage() {
 
   return (
     <div className="container-page py-8">
+      <HomeLink className="mb-2" />
       <h1 className="mb-6 text-2xl font-extrabold sm:text-3xl tracking-tight text-navy">
         My Wishlist <span className="text-lg font-semibold text-muted">({products.length})</span>
       </h1>

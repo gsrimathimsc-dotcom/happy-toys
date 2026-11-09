@@ -4,6 +4,7 @@ import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import CartItemRow from "@/components/cart/CartItemRow";
 import OrderSummary from "@/components/cart/OrderSummary";
 import Button from "@/components/ui/Button";
+import HomeLink from "@/components/ui/HomeLink";
 import EmptyState from "@/components/ui/EmptyState";
 
 export default function CartPage() {
@@ -13,6 +14,7 @@ export default function CartPage() {
   if (items.length === 0) {
     return (
       <div className="container-page py-12">
+        <HomeLink className="mb-2" />
         <h1 className="sr-only">Shopping Cart</h1>
         <EmptyState
           icon={ShoppingBag}
@@ -28,9 +30,12 @@ export default function CartPage() {
   return (
     <div className="container-page py-8">
       <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
-        <h1 className="text-2xl font-extrabold tracking-tight text-navy sm:text-3xl">
-          Shopping Cart <span className="text-lg font-semibold text-muted">({totals.itemCount} items)</span>
-        </h1>
+        <div>
+          <HomeLink className="mb-1" />
+          <h1 className="text-2xl font-extrabold tracking-tight text-navy sm:text-3xl">
+            Shopping Cart <span className="text-lg font-semibold text-muted">({totals.itemCount} items)</span>
+          </h1>
+        </div>
         <button onClick={clearCart} className="text-sm font-semibold text-red-500 hover:text-red-600">
           Clear cart
         </button>

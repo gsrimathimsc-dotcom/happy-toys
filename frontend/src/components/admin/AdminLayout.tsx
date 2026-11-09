@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { Boxes, CalendarDays, CalendarRange, LayoutDashboard, Package, ShoppingBag, Tags, TicketPercent, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
+import HomeLink from "@/components/ui/HomeLink";
 
 const LINKS = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, end: true },
@@ -18,6 +19,7 @@ const LINKS = [
 export default function AdminLayout() {
   return (
     <div className="container-page py-4 sm:py-6">
+      <HomeLink label="Back to store" className="mb-2" />
       <nav
         aria-label="Admin"
         className="mb-6 flex gap-1 overflow-x-auto rounded-2xl border border-slate-100 bg-white p-2 shadow-sm"

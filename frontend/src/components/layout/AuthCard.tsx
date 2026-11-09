@@ -1,11 +1,15 @@
 import type { ReactNode } from "react";
 import { Gift, ShieldCheck, Truck } from "lucide-react";
+import HomeLink from "@/components/ui/HomeLink";
 import Logo from "./Logo";
 
 /** Two-column card shared by the Login and Register pages. */
 export default function AuthCard({ title, subtitle, children }: { title: string; subtitle: string; children: ReactNode }) {
   return (
     <div className="container-page py-6 sm:py-12">
+      <div className="mx-auto mb-3 max-w-5xl">
+        <HomeLink label="Back to Home" />
+      </div>
       <div className="mx-auto grid max-w-5xl overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-slate-100 lg:grid-cols-2">
         {/* Brand panel */}
         <div className="relative hidden flex-col justify-between overflow-hidden bg-gradient-to-br from-primary to-indigo-700 p-10 text-white lg:flex">
