@@ -32,7 +32,8 @@ public class CategoryService(IAppDbContext db) : ICategoryService
     {
         var id = Slugify(request.Name);
         if (id.Length == 0) throw ApiException.BadRequest("Category name must contain letters or numbers.");
-        await EnsureNameFreeAsync(request.Name, id);
+        // A new category has no id of its own to skip, so the id passed here matches nothing.
+        await EnsureNameFreeAsync(request.Name, "");
 
         db.Categories.Add(new Category { Id = id, Name = request.Name.Trim(), Description = request.Description.Trim() });
         await db.SaveChangesAsync();

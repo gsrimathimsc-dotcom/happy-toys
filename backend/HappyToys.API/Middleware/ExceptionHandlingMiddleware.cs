@@ -1,5 +1,7 @@
 using HappyToys.Application.DTOs;
 using HappyToys.Application.Services;
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
 
 namespace HappyToys.API.Middleware;
 
@@ -18,6 +20,12 @@ public class ExceptionHandlingMiddleware(RequestDelegate next, ILogger<Exception
         catch (ApiException exception)
         {
             await WriteErrorAsync(context, exception.StatusCode, exception.Message);
+        }
+        catch (DbUpdateException exception) when (exception.InnerException is PostgresException { SqlState: PostgresErrorCodes.UniqueViolation })
+        {
+            // A unique rule in the database was hit (for example two requests at once).
+            logger.LogWarning(exception, "Duplicate record on {Method} {Path}", context.Request.Method, context.Request.Path);
+            await WriteErrorAsync(context, StatusCodes.Status409Conflict, "That already exists. Please use a different value.");
         }
         catch (Exception exception)
         {
