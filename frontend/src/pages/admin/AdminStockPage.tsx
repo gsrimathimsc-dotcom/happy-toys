@@ -28,7 +28,25 @@ export default function AdminStockPage() {
         title="Current Stock"
         subtitle={`${products.length} products, ${totalUnits.toLocaleString("en-IN")} units. Lowest stock is shown first.`}
       />
-      <AdminSearch onSearch={setSearch} label="Search stock" placeholder="Search by name, brand or category" className="mb-4" />
+      <AdminSearch
+        onSearch={setSearch}
+        label="Search stock"
+        placeholder="Search by name, brand or category"
+        className="mb-4"
+        items={data.filter((p) => p.isActive)}
+        matches={(p, term) => [p.name, p.brand, p.categoryName, p.id].some((text) => text.toLowerCase().includes(term))}
+        getKey={(p) => p.id}
+        getText={(p) => p.name}
+        renderItem={(p) => (
+          <span className="flex items-center justify-between gap-3">
+            <span className="min-w-0">
+              <span className="block truncate text-sm font-semibold text-navy">{p.name}</span>
+              <span className="block truncate text-xs text-muted">{p.categoryName}</span>
+            </span>
+            <span className="text-sm text-muted">{p.stockQuantity} in stock</span>
+          </span>
+        )}
+      />
       {products.length === 0 && <p className="mb-4 text-sm text-muted">No products match your search.</p>}
       <TablePanel fit>
         <thead className="border-b border-slate-100 text-xs uppercase text-muted">

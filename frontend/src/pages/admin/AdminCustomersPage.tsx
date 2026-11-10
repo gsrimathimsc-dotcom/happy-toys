@@ -22,7 +22,22 @@ export default function AdminCustomersPage() {
         title="Customers"
         subtitle={`${data.length} registered customers. Total spent leaves out cancelled orders.`}
         action={
-          <AdminSearch onSearch={setSearch} label="Search customers" placeholder="Search customers" className="!w-full sm:!w-64" />
+          <AdminSearch
+            onSearch={setSearch}
+            label="Search customers"
+            placeholder="Search customers"
+            className="sm:!w-72"
+            items={data}
+            matches={(c, term) => [c.name, c.email, c.mobile].some((text) => text.toLowerCase().includes(term))}
+            getKey={(c) => c.email}
+            getText={(c) => c.email}
+            renderItem={(c) => (
+              <span className="block min-w-0">
+                <span className="block truncate text-sm font-semibold text-navy">{c.name}</span>
+                <span className="block truncate text-xs text-muted">{c.email}</span>
+              </span>
+            )}
+          />
         }
       />
 

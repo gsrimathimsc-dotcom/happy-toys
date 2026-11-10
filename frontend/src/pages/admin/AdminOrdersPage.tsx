@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AdminSearch from "@/components/admin/AdminSearch";
 import { AdminHeading, formatDateTime, LoadState, OrderStatusBadge, TablePanel } from "@/components/admin/AdminParts";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
@@ -12,6 +12,7 @@ const STATUSES: OrderStatus[] = ["confirmed", "processing", "shipped", "delivere
 
 export default function AdminOrdersPage() {
   useDocumentTitle("Orders");
+  const navigate = useNavigate();
   const [status, setStatus] = useState<OrderStatus | "">("");
   const { data, error, reload } = useLoad(() => getAdminOrders(status || undefined), status);
   const [search, setSearch] = useState("");
@@ -47,7 +48,29 @@ export default function AdminOrdersPage() {
         }
       />
 
-      <AdminSearch onSearch={setSearch} label="Search orders" placeholder="Search by order number, customer, mobile or toy" className="mb-4" />
+      <AdminSearch
+        onSearch={setSearch}
+        label="Search orders"
+        placeholder="Search by order number, customer, mobile or toy"
+        className="mb-4"
+        items={data ?? []}
+        matches={(o, term) =>
+          [o.id, o.customer.name, o.customer.mobile, o.customer.email, ...o.items.map((i) => i.name)].some((text) =>
+            text.toLowerCase().includes(term)
+          )
+        }
+        getKey={(o) => o.id}
+        onSelect={(o) => navigate(`/admin/orders/${o.id}`)}
+        renderItem={(o) => (
+          <span className="flex items-center justify-between gap-3">
+            <span className="min-w-0">
+              <span className="block truncate font-mono text-xs font-semibold text-primary">{o.id}</span>
+              <span className="block truncate text-xs text-muted">{o.customer.name}</span>
+            </span>
+            <span className="text-sm font-bold text-navy">{formatPrice(o.totals.total)}</span>
+          </span>
+        )}
+      />
 
       {!orders ? (
         <LoadState error={error} onRetry={reload} />

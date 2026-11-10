@@ -1,6 +1,6 @@
 import { useState } from "react";
 import AdminSearch from "@/components/admin/AdminSearch";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Pencil, Plus, RotateCcw, Trash2 } from "lucide-react";
 import { AdminHeading, LoadState, StockBadge, TablePanel } from "@/components/admin/AdminParts";
 import Button from "@/components/ui/Button";
@@ -14,6 +14,7 @@ import type { Product } from "@/types";
 export default function AdminProductsPage() {
   useDocumentTitle("Manage Products");
   const { showToast } = useToast();
+  const navigate = useNavigate();
   const { data, error, reload } = useLoad(getAdminProducts);
   const [search, setSearch] = useState("");
 
@@ -55,7 +56,25 @@ export default function AdminProductsPage() {
         }
       />
 
-      <AdminSearch onSearch={setSearch} label="Search products" placeholder="Search by name, brand or category" className="mb-4" />
+      <AdminSearch
+        onSearch={setSearch}
+        label="Search products"
+        placeholder="Search by name, brand or category"
+        className="mb-4"
+        items={data}
+        matches={(p, term) => [p.name, p.brand, p.categoryName, p.id].some((text) => text.toLowerCase().includes(term))}
+        getKey={(p) => p.id}
+        onSelect={(p) => navigate(`/admin/products/${p.id}/edit`)}
+        renderItem={(p) => (
+          <span className="flex items-center justify-between gap-3">
+            <span className="min-w-0">
+              <span className="block truncate text-sm font-semibold text-navy">{p.name}</span>
+              <span className="block truncate text-xs text-muted">{p.brand} - {p.categoryName}</span>
+            </span>
+            <span className="text-sm font-bold text-navy">{formatPrice(p.price)}</span>
+          </span>
+        )}
+      />
 
       <TablePanel fit>
         <thead className="border-b border-slate-100 text-xs uppercase text-muted">
