@@ -187,10 +187,10 @@ export default function AdminOffersPage() {
               <td className="p-3">{coupon.isActive ? "Active" : "Inactive"}</td>
               <td className="p-3">
                 <div className="flex justify-end gap-1">
-                  <Button variant="ghost" size="sm" aria-label={`Edit ${coupon.code}`} onClick={() => open(coupon)}>
+                  <Button variant="ghost" size="sm" className="h-10 w-10 !p-0" aria-label={`Edit ${coupon.code}`} onClick={() => open(coupon)}>
                     <Pencil className="h-4 w-4" />
                   </Button>
-                  <Button variant="ghost" size="sm" aria-label={`Delete ${coupon.code}`} onClick={() => void remove(coupon)}>
+                  <Button variant="ghost" size="sm" className="h-10 w-10 !p-0" aria-label={`Delete ${coupon.code}`} onClick={() => void remove(coupon)}>
                     <Trash2 className="h-4 w-4 text-red-600" />
                   </Button>
                 </div>

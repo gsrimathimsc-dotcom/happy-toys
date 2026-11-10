@@ -18,7 +18,7 @@ export default function SectionHeading({ title, subtitle, linkLabel, linkHref }:
       {linkLabel && linkHref && (
         <Link
           to={linkHref}
-          className="group inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary-dark"
+          className="group inline-flex min-h-10 items-center gap-1 text-sm font-semibold text-primary hover:text-primary-dark"
         >
           {linkLabel}
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

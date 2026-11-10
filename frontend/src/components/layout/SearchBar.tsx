@@ -79,7 +79,7 @@ export default function SearchBar() {
   return (
     <SearchCombobox<Product>
       label="Search products"
-      placeholder="Search for toys, brands and more..."
+      placeholder="Search toys and brands"
       value={term}
       onValueChange={(value) => {
         setTypedHere(true);

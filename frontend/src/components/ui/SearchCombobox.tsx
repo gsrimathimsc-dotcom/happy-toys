@@ -124,7 +124,7 @@ export default function SearchCombobox<T>({
         {showSubmitButton && (
           <button
             type="submit"
-            className="absolute right-1.5 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-white transition hover:bg-primary-dark"
+            className="absolute right-1.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-white transition hover:bg-primary-dark"
             aria-label="Search"
           >
             <Search className="h-4 w-4" />

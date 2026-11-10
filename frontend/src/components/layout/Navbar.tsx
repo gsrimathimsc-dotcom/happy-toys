@@ -31,7 +31,7 @@ export default function Navbar() {
   useEffect(() => setMenuOpen(false), [locationKey]);
 
   const iconButton =
-    "relative flex h-10 w-10 items-center justify-center rounded-full text-navy transition hover:bg-slate-100 hover:text-primary";
+    "relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-navy transition hover:bg-slate-100 hover:text-primary";
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 shadow-sm backdrop-blur">
@@ -44,7 +44,7 @@ export default function Navbar() {
       </div>
 
       {/* Main bar */}
-      <div className="container-page flex h-16 items-center gap-4 lg:h-20 lg:gap-8">
+      <div className="container-page flex h-16 items-center gap-2 sm:gap-4 lg:h-20 lg:gap-8">
         <button
           className={cn(iconButton, "lg:hidden")}
           onClick={() => setMenuOpen((open) => !open)}
@@ -60,7 +60,7 @@ export default function Navbar() {
           <SearchBar />
         </div>
 
-        <nav className="ml-auto flex items-center gap-1 sm:gap-2">
+        <nav className="ml-auto flex items-center sm:gap-2">
           {user ? (
             <div className="hidden items-center gap-2 md:flex">
               {user.role === "admin" && (

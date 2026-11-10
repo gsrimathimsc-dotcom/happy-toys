@@ -126,10 +126,10 @@ export default function AdminCategoriesPage() {
               <td className="p-3 text-right">{category.productCount}</td>
               <td className="p-3">
                 <div className="flex justify-end gap-1">
-                  <Button variant="ghost" size="sm" aria-label={`Edit ${category.name}`} onClick={() => open(category)}>
+                  <Button variant="ghost" size="sm" className="h-10 w-10 !p-0" aria-label={`Edit ${category.name}`} onClick={() => open(category)}>
                     <Pencil className="h-4 w-4" />
                   </Button>
-                  <Button variant="ghost" size="sm" aria-label={`Delete ${category.name}`} onClick={() => void remove(category)}>
+                  <Button variant="ghost" size="sm" className="h-10 w-10 !p-0" aria-label={`Delete ${category.name}`} onClick={() => void remove(category)}>
                     <Trash2 className="h-4 w-4 text-red-600" />
                   </Button>
                 </div>

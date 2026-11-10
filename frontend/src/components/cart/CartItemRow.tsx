@@ -21,7 +21,7 @@ export default function CartItemRow({ item }: { item: CartItem }) {
         <div className="min-w-0">
           <Link
             to={`/products/${item.productId}`}
-            className="line-clamp-2 font-semibold text-navy hover:text-primary"
+            className="line-clamp-2 py-1.5 font-semibold text-navy hover:text-primary"
           >
             {item.name}
           </Link>

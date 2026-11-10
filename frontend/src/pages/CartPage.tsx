@@ -36,7 +36,7 @@ export default function CartPage() {
             Shopping Cart <span className="text-lg font-semibold text-muted">({totals.itemCount} items)</span>
           </h1>
         </div>
-        <button onClick={clearCart} className="text-sm font-semibold text-red-500 hover:text-red-600">
+        <button onClick={clearCart} className="min-h-10 px-1 text-sm font-semibold text-red-500 hover:text-red-600">
           Clear cart
         </button>
       </div>

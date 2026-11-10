@@ -33,7 +33,7 @@ export default function FormField({ label, name, error, type = "text", className
           <button
             type="button"
             onClick={() => setVisible((v) => !v)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-navy"
+            className="absolute right-0.5 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center text-slate-400 hover:text-navy"
             aria-label={visible ? "Hide password" : "Show password"}
           >
             {visible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}

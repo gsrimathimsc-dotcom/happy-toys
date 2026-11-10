@@ -108,7 +108,7 @@ export default function AdminDashboardPage() {
             {data.recentOrders.map((order) => (
               <tr key={order.id}>
                 <td className="p-3 font-mono text-xs">
-                  <Link to={`/admin/orders/${order.id}`} className="font-semibold text-primary hover:underline">
+                  <Link to={`/admin/orders/${order.id}`} className="inline-flex min-h-10 items-center font-semibold text-primary hover:underline">
                     {order.id}
                   </Link>
                 </td>

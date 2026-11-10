@@ -103,7 +103,7 @@ export default function ProductsView() {
       {/* Page header */}
       <div className="mb-6">
         <p className="text-sm text-muted">
-          <Link to="/" className="font-medium hover:text-primary">Home</Link>
+          <Link to="/" className="inline-flex min-h-10 items-center font-medium hover:text-primary">Home</Link>
           {" / "}
           {activeCategory ? <Link to="/products" className="hover:text-primary">Products</Link> : "Products"}
           {activeCategory ? ` / ${activeCategory.name}` : ""}

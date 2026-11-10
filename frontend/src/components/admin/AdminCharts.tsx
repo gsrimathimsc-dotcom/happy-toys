@@ -3,13 +3,17 @@ import { formatPrice } from "@/lib/utils";
 
 export function ChartPanel({ title, subtitle, children }: { title: string; subtitle?: string; children: ReactNode }) {
   return (
-    <section className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm sm:p-5">
+    <section className="min-w-0 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm sm:p-5">
       <h2 className="text-base font-bold text-navy">{title}</h2>
       {subtitle && <p className="text-xs text-muted">{subtitle}</p>}
       <div className="mt-4">{children}</div>
     </section>
   );
 }
+
+/** Short rupee amounts for small chart labels, e.g. 31120 becomes "₹31.1K". The full amount is in the tooltip. */
+const compact = (value: number) =>
+  new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", notation: "compact", maximumFractionDigits: 1 }).format(value);
 
 export interface ChartPoint {
   label: string;
@@ -23,13 +27,15 @@ export function BarChart({ points, format = formatPrice }: { points: ChartPoint[
     <div className="flex h-48 items-end gap-2" role="img" aria-label="Bar chart">
       {points.map((p) => (
         <div key={p.label} className="flex h-full min-w-0 flex-1 flex-col items-center justify-end gap-1">
-          <span className="text-[10px] font-semibold text-navy">{p.value > 0 ? format(p.value) : ""}</span>
+          <span className="w-full truncate text-center text-[11px] font-semibold text-navy" title={format(p.value)}>
+            {p.value > 0 ? compact(p.value) : ""}
+          </span>
           <div
             className="w-full rounded-t-lg bg-primary"
             style={{ height: `${(p.value / max) * 100}%`, minHeight: p.value > 0 ? 4 : 0 }}
             title={`${p.label}: ${format(p.value)}`}
           />
-          <span className="w-full truncate text-center text-[10px] text-muted">{p.label}</span>
+          <span className="w-full truncate text-center text-[11px] text-muted">{p.label}</span>
         </div>
       ))}
     </div>
@@ -49,7 +55,7 @@ export function LineChart({ points }: { points: ChartPoint[] }) {
         <polygon points={`0,${height} ${coords.join(" ")} ${width},${height}`} className="fill-primary/10" />
         <polyline points={coords.join(" ")} fill="none" strokeWidth="1.5" vectorEffect="non-scaling-stroke" className="stroke-primary" />
       </svg>
-      <div className="mt-1 flex justify-between text-[10px] text-muted">
+      <div className="mt-1 flex justify-between text-[11px] text-muted">
         <span>{points[0]?.label}</span>
         <span>{points[points.length - 1]?.label}</span>
       </div>

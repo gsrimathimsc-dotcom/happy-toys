@@ -38,6 +38,13 @@ export default function ProductDetailsView({ productId }: { productId: string })
 
   useDocumentTitle(data?.product.name);
 
+  // The Add to Cart bar is fixed to the bottom on phones: keep the footer clear of it.
+  const hasStickyBar = !!data && data.product.stockQuantity > 0;
+  useEffect(() => {
+    document.body.classList.toggle("has-sticky-bar", hasStickyBar);
+    return () => document.body.classList.remove("has-sticky-bar");
+  }, [hasStickyBar]);
+
   useEffect(() => {
     let cancelled = false;
     setData(null);
@@ -97,11 +104,11 @@ export default function ProductDetailsView({ productId }: { productId: string })
     <div className={cn("container-page py-8", product.stockQuantity > 0 && "pb-28 lg:pb-8")}>
       {/* Breadcrumb */}
       <nav className="mb-6 flex flex-wrap items-center gap-1 text-sm text-muted" aria-label="Breadcrumb">
-        <Link to="/" className="hover:text-primary">Home</Link>
+        <Link to="/" className="inline-flex min-h-10 items-center hover:text-primary">Home</Link>
         <ChevronRight className="h-4 w-4" />
-        <Link to="/products" className="hover:text-primary">Products</Link>
+        <Link to="/products" className="inline-flex min-h-10 items-center hover:text-primary">Products</Link>
         <ChevronRight className="h-4 w-4" />
-        <Link to={`/products?category=${product.categoryId}`} className="hover:text-primary">
+        <Link to={`/products?category=${product.categoryId}`} className="inline-flex min-h-10 items-center hover:text-primary">
           {product.categoryName}
         </Link>
         <ChevronRight className="h-4 w-4" />
@@ -181,7 +188,7 @@ export default function ProductDetailsView({ productId }: { productId: string })
                   onClick={handleAddToCart}
                   isLoading={busy === "cart"}
                   disabled={busy !== null || maxQuantity === 0}
-                  className="flex-1"
+                  className="flex-1 whitespace-nowrap !px-3 sm:!px-7"
                 >
                   {busy !== "cart" && <ShoppingCart className="h-5 w-5" />}
                   {maxQuantity === 0 ? "Max in cart" : "Add to Cart"}
@@ -192,7 +199,7 @@ export default function ProductDetailsView({ productId }: { productId: string })
                   onClick={handleBuyNow}
                   isLoading={busy === "buy"}
                   disabled={busy !== null}
-                  className="flex-1"
+                  className="flex-1 whitespace-nowrap !px-3 sm:!px-7"
                 >
                   {busy !== "buy" && <Zap className="h-5 w-5" />}
                   Buy Now
@@ -204,7 +211,7 @@ export default function ProductDetailsView({ productId }: { productId: string })
           <button
             onClick={() => toggleWishlist(product.id, product.name)}
             className={cn(
-              "mt-4 inline-flex items-center gap-2 text-sm font-semibold transition",
+              "mt-2 inline-flex min-h-10 items-center gap-2 text-sm font-semibold transition",
               saved ? "text-red-500" : "text-muted hover:text-red-500"
             )}
           >

@@ -89,7 +89,7 @@ export default function ProductCard({ product }: { product: Product }) {
           disabled={outOfStock}
           size="sm"
           fullWidth
-          className="mt-auto"
+          className="mt-auto min-h-10"
         >
           {!adding && <ShoppingCart className="h-4 w-4" />}
           {outOfStock ? "Out of Stock" : "Add to Cart"}

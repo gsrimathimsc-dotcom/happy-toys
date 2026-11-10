@@ -195,3 +195,22 @@
     transform: none;
   }
 }
+
+/*
+  Form controls must be at least 16px on phones, or iPhones zoom the page when one is tapped.
+  This sits OUTSIDE every @layer on purpose: unlayered CSS beats the utility classes (text-sm, input-field).
+*/
+@media (width < 40rem) {
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
+/* Room at the bottom of the page for the fixed Add to Cart bar, so it never hides the footer. */
+@media (width < 64rem) {
+  body.has-sticky-bar {
+    padding-bottom: 7.5rem;
+  }
+}
