@@ -25,12 +25,15 @@ export default function SearchBar() {
   const onProductsPage = pathname === "/products";
 
   const [matches, setMatches] = useState<{ term: string; items: Product[]; total: number } | null>(null);
+  // The navbar holds two copies of this box (phone and desktop). Only the one the customer typed in looks up matches.
+  const [typedHere, setTypedHere] = useState(false);
 
   // Keep the box in step with the URL, e.g. when a search is cleared elsewhere.
   useEffect(() => {
     if (currentSearch !== sentTerm.current) {
       sentTerm.current = currentSearch;
       setTerm(currentSearch);
+      setTypedHere(false);
     }
   }, [currentSearch]);
 
@@ -48,7 +51,7 @@ export default function SearchBar() {
 
   // Look up a few matches for the dropdown.
   useEffect(() => {
-    if (debouncedTerm.length < MIN_SUGGESTION_LENGTH) {
+    if (!typedHere || debouncedTerm.length < MIN_SUGGESTION_LENGTH) {
       setMatches(null);
       return;
     }
@@ -63,7 +66,7 @@ export default function SearchBar() {
     return () => {
       cancelled = true;
     };
-  }, [debouncedTerm]);
+  }, [debouncedTerm, typedHere]);
 
   const openResults = (value: string) => {
     sentTerm.current = value;
@@ -78,7 +81,10 @@ export default function SearchBar() {
       label="Search products"
       placeholder="Search for toys, brands and more..."
       value={term}
-      onValueChange={setTerm}
+      onValueChange={(value) => {
+        setTypedHere(true);
+        setTerm(value);
+      }}
       suggestions={current ? current.items : null}
       getKey={(product) => product.id}
       onSelect={(product) => navigate(`/products/${product.id}`)}
