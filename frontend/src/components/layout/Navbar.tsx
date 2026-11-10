@@ -19,15 +19,16 @@ function CountBadge({ count }: { count: number }) {
 }
 
 export default function Navbar() {
-  const { pathname } = useLocation();
+  // `key` changes on every navigation, even when only the ?filters part of the address changes.
+  const { key: locationKey } = useLocation();
   const categories = useCategories();
   const { user, logout } = useAuth();
   const { totals } = useCart();
   const { ids: wishlistIds } = useWishlist();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Close the mobile menu whenever the page changes.
-  useEffect(() => setMenuOpen(false), [pathname]);
+  // Close the mobile menu after any navigation.
+  useEffect(() => setMenuOpen(false), [locationKey]);
 
   const iconButton =
     "relative flex h-10 w-10 items-center justify-center rounded-full text-navy transition hover:bg-slate-100 hover:text-primary";
@@ -137,7 +138,13 @@ export default function Navbar() {
 
       {/* Mobile drawer */}
       {menuOpen && (
-        <div className="max-h-[60dvh] animate-drop-in overflow-y-auto overscroll-contain border-t border-slate-100 bg-white lg:hidden">
+        <div
+          className="max-h-[60dvh] animate-drop-in overflow-y-auto overscroll-contain border-t border-slate-100 bg-white lg:hidden"
+          // Tapping any link or button in the menu closes it, even if the address does not change.
+          onClick={(event) => {
+            if ((event.target as HTMLElement).closest("a, button")) setMenuOpen(false);
+          }}
+        >
           <div className="container-page flex flex-col gap-1 py-4">
             {user ? (
               <div className="mb-2 flex items-center justify-between gap-3 rounded-xl bg-primary-light px-4 py-3">

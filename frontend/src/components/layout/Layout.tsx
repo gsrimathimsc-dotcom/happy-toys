@@ -15,7 +15,7 @@ export default function Layout() {
     <Providers>
       <div className="flex min-h-dvh flex-col font-sans">
         <Navbar />
-        <main key={pathname} className="flex-1 animate-fade-in">
+        <main key={pathname} className="flex-1 animate-page-in">
           <Outlet />
         </main>
         <Footer />
